@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mindvault_test
+    username: postgres
+    password: postgres
+
+  flyway:
+    enabled: false
