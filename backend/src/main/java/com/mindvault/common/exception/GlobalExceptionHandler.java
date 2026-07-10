@@ -5,10 +5,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.mindvault.auth.exception.InvalidCredentialsException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ProblemDetail handleInvalidCredentials(
+        InvalidCredentialsException ex) {
+
+        ProblemDetail problem =
+            ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+
+        problem.setTitle("Authentication failed");
+        problem.setDetail(ex.getMessage());
+
+        return problem;
+    }
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ProblemDetail handleEmailAlreadyExists(EmailAlreadyExistsException ex) {
 
