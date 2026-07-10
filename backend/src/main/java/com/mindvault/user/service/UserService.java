@@ -3,6 +3,7 @@ package com.mindvault.user.service;
 import com.mindvault.user.dto.CreateUserRequest;
 import com.mindvault.user.dto.UserResponse;
 import com.mindvault.user.entity.User;
+import com.mindvault.user.exception.EmailAlreadyExistsException;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class UserService {
     public UserResponse create(CreateUserRequest request) {
 
         if (userRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("Email already registered");
+            throw new EmailAlreadyExistsException(request.email());
         }
 
         User user = new User();

@@ -5,6 +5,7 @@ import com.mindvault.user.entity.User;
 import com.mindvault.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import com.mindvault.user.exception.EmailAlreadyExistsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -35,9 +36,14 @@ class UserServiceTest {
         when(userRepository.existsByEmail(request.email()))
             .thenReturn(true);
 
-        assertThrows(
-            IllegalArgumentException.class,
+        EmailAlreadyExistsException exception = assertThrows(
+            EmailAlreadyExistsException.class,
             () -> userService.create(request)
+        );
+
+        assertEquals(
+            "Email 'ruan@email.com' is already registered.",
+            exception.getMessage()
         );
 
         verify(userRepository, never()).save(any(User.class));
