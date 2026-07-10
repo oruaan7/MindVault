@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 
@@ -21,6 +22,9 @@ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private UserService userService;
@@ -37,6 +41,9 @@ class UserServiceTest {
 
         when(userRepository.existsByEmail(any()))
             .thenReturn(false);
+
+        when(passwordEncoder.encode(request.password()))
+            .thenReturn("senha-criptografada");
 
         when(userRepository.save(any(User.class)))
             .thenAnswer(invocation -> {
