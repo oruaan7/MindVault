@@ -6,6 +6,7 @@ import com.mindvault.user.entity.User;
 import com.mindvault.user.exception.EmailAlreadyExistsException;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse create(CreateUserRequest request) {
 
@@ -24,7 +27,9 @@ public class UserService {
 
         user.setName(request.name());
         user.setEmail(request.email());
-        user.setPassword(request.password());
+        user.setPassword(
+            passwordEncoder.encode(request.password())
+        );
 
         user = userRepository.save(user);
 

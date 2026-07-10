@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
@@ -22,6 +24,35 @@ class UserServiceTest {
 
     @InjectMocks
     private UserService userService;
+
+    @Test
+    void shouldEncodePasswordBeforeSaving() {
+
+        CreateUserRequest request =
+            new CreateUserRequest(
+                "Ruan",
+                "ruan@email.com",
+                "12345678"
+            );
+
+        when(userRepository.existsByEmail(any()))
+            .thenReturn(false);
+
+        when(userRepository.save(any(User.class)))
+            .thenAnswer(invocation -> {
+
+                User user = invocation.getArgument(0);
+                user.setId(UUID.randomUUID());
+
+                return user;
+            });
+
+        userService.create(request);
+
+        verify(userRepository).save(argThat(user ->
+            !user.getPassword().equals("12345678")
+        ));
+    }
 
     @Test
     void shouldThrowExceptionWhenEmailAlreadyExists() {
@@ -49,3 +80,4 @@ class UserServiceTest {
         verify(userRepository, never()).save(any(User.class));
     }
 }
+
