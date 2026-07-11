@@ -17,6 +17,12 @@ spring:
   flyway:
     enabled: true
 
+
+jwt:
+  secret: mindvault-super-secret-key-change-in-production-2026
+  expiration: 86400000
+
+
 logging:
   level:
     org.hibernate.SQL: debug

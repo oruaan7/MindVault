@@ -6,3 +6,7 @@ spring:
 
   flyway:
     enabled: false
+
+    jwt:
+        secret: test-secret-key-for-mindvault-2026-very-secure
+        expiration: 86400000
