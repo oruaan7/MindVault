@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/habits")
 @RequiredArgsConstructor
@@ -25,5 +27,11 @@ public class HabitController {
             request,
             authentication.getName()
         );
+    }
+
+    @GetMapping
+    public List<HabitResponse> findAll(Authentication authentication) {
+
+        return habitService.findAll(authentication.getName());
     }
 }
