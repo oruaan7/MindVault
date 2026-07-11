@@ -1,12 +1,14 @@
 package com.mindvault.user.entity;
 
 import com.mindvault.common.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.mindvault.habit.entity.Habit;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,5 +25,12 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<Habit> habits = new ArrayList<>();
 
 }
