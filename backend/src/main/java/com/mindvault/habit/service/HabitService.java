@@ -48,11 +48,16 @@ public class HabitService {
 
     public HabitResponse update(UUID id, UpdateHabitRequest request, String email) {
 
+        System.out.println("========== UPDATE ==========");
+
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Habit habit = habitRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
+
+        System.out.println("Usuário autenticado: " + user.getId());
+        System.out.println("Dono do hábito:      " + habit.getUser().getId());
 
         if (!habit.getUser().getId().equals(user.getId())) {
             throw new IllegalArgumentException("You cannot update another user's habit");
@@ -69,17 +74,37 @@ public class HabitService {
 
     public void delete(UUID id, String email) {
 
+        System.out.println("========== DELETE ==========");
+
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        System.out.println("Usuário encontrado:");
+        System.out.println("ID: " + user.getId());
+        System.out.println("Email: " + user.getEmail());
 
         Habit habit = habitRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
 
+        System.out.println("Hábito encontrado:");
+        System.out.println("ID: " + habit.getId());
+        System.out.println("Título: " + habit.getTitle());
+        System.out.println("Dono: " + habit.getUser().getId());
+
         if (!habit.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("You cannot delete another user's habit");
+
+            System.out.println(">>> TENTATIVA DE EXCLUIR HÁBITO DE OUTRO USUÁRIO <<<");
+
+            throw new IllegalArgumentException(
+                "You cannot delete another user's habit"
+            );
         }
 
+        System.out.println(">>> EXCLUINDO HÁBITO <<<");
+
         habitRepository.delete(habit);
+
+        System.out.println(">>> HÁBITO EXCLUÍDO COM SUCESSO <<<");
     }
 
     private HabitResponse toResponse(Habit habit) {

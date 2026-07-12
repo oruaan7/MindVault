@@ -6,6 +6,7 @@ import com.mindvault.habit.dto.UpdateHabitRequest;
 import com.mindvault.habit.service.HabitService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,5 +40,15 @@ public class HabitController {
         Authentication authentication
     ) {
         return habitService.update(id, request, authentication.getName());
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+        @PathVariable UUID id,
+        Authentication authentication
+    ) {
+        System.out.println(">>> DELETE chegou ao controller <<<");
+        habitService.delete(id, authentication.getName());
     }
 }
