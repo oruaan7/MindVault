@@ -67,6 +67,21 @@ public class HabitService {
         return toResponse(updatedHabit);
     }
 
+    public void delete(UUID id, String email) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Habit habit = habitRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
+
+        if (!habit.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("You cannot delete another user's habit");
+        }
+
+        habitRepository.delete(habit);
+    }
+
     private HabitResponse toResponse(Habit habit) {
         return new HabitResponse(
             habit.getId(),
