@@ -11,6 +11,7 @@ import com.mindvault.habit.entity.Habit;
 import com.mindvault.habitrecord.entity.HabitRecord;
 import com.mindvault.user.entity.User;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -54,5 +55,14 @@ public class HabitRecordService {
             saved.getDate(),
             saved.isCompleted()
         );
+    }
+
+    public List<HabitRecordResponse> findAllByHabit(
+        UUID habitId,
+        String email
+    ) {
+        System.out.println(">>> HISTORY SERVICE <<<");
+
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
