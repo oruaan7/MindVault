@@ -37,10 +37,14 @@ public class HabitRecordService {
             throw new IllegalArgumentException("Habit does not belong to user");
         }
 
-        HabitRecord habitRecord = new HabitRecord();
+        LocalDate today = LocalDate.now();
+
+        HabitRecord habitRecord = habitRecordRepository
+            .findByHabitAndDate(habit, today)
+            .orElseGet(HabitRecord::new);
 
         habitRecord.setHabit(habit);
-        habitRecord.setDate(LocalDate.now());
+        habitRecord.setDate(today);
         habitRecord.setCompleted(request.completed());
 
         HabitRecord saved = habitRecordRepository.save(habitRecord);
