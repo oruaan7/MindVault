@@ -61,8 +61,26 @@ public class HabitRecordService {
         UUID habitId,
         String email
     ) {
-        System.out.println(">>> HISTORY SERVICE <<<");
 
-        throw new UnsupportedOperationException("Not implemented yet");
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Habit habit = habitRepository.findById(habitId)
+            .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
+
+        if (!habit.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Habit does not belong to user");
+        }
+
+        List<HabitRecord> records =
+            habitRecordRepository.findAllByHabitOrderByDateDesc(habit);
+
+        return records.stream()
+            .map(record -> new HabitRecordResponse(
+                record.getId(),
+                record.getDate(),
+                record.isCompleted()
+            ))
+            .toList();
     }
 }
