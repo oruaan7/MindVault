@@ -3,6 +3,7 @@ package com.mindvault.habitrecord.service;
 import com.mindvault.habit.repository.HabitRepository;
 import com.mindvault.habitrecord.dto.CreateHabitRecordRequest;
 import com.mindvault.habitrecord.dto.HabitRecordResponse;
+import com.mindvault.habitrecord.dto.HabitStreakResponse;
 import com.mindvault.habitrecord.repository.HabitRecordRepository;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,58 @@ public class HabitRecordService {
             saved.getId(),
             saved.getDate(),
             saved.isCompleted()
+        );
+    }
+
+    public HabitStreakResponse getStreak(
+        UUID habitId,
+        String email
+    ) {
+
+        System.out.println(">>> STREAK SERVICE <<<");
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Habit habit = habitRepository.findById(habitId)
+            .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
+
+        if (!habit.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Habit does not belong to user");
+        }
+
+        List<HabitRecord> records =
+            habitRecordRepository.findAllByHabitOrderByDateDesc(habit);
+
+        int currentStreak = 0;
+        int bestStreak = 0;
+        int streak = 0;
+
+        boolean calculatingCurrent = true;
+
+        for (HabitRecord record : records) {
+
+            if (record.isCompleted()) {
+
+                streak++;
+
+                if (calculatingCurrent) {
+                    currentStreak++;
+                }
+
+                bestStreak = Math.max(bestStreak, streak);
+
+            } else {
+
+                streak = 0;
+
+                calculatingCurrent = false;
+            }
+        }
+
+        return new HabitStreakResponse(
+            currentStreak,
+            bestStreak
         );
     }
 

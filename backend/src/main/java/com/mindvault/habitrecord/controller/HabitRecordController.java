@@ -2,6 +2,7 @@ package com.mindvault.habitrecord.controller;
 
 import com.mindvault.habitrecord.dto.CreateHabitRecordRequest;
 import com.mindvault.habitrecord.dto.HabitRecordResponse;
+import com.mindvault.habitrecord.dto.HabitStreakResponse;
 import com.mindvault.habitrecord.service.HabitRecordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,24 @@ public class HabitRecordController {
             habitId,
             authentication.getName()
         );
+    }
+
+    @GetMapping("/streak")
+    public HabitStreakResponse getStreak(
+
+        @PathVariable UUID habitId,
+
+        Authentication authentication
+
+    ) {
+
+        System.out.println(">>> STREAK CONTROLLER <<<");
+
+        return habitRecordService.getStreak(
+            habitId,
+            authentication.getName()
+        );
+
     }
 
     @PostMapping
