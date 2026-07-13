@@ -7,7 +7,10 @@ import com.mindvault.habitrecord.repository.HabitRecordRepository;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import com.mindvault.habit.entity.Habit;
+import com.mindvault.habitrecord.entity.HabitRecord;
+import com.mindvault.user.entity.User;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -23,6 +26,29 @@ public class HabitRecordService {
         CreateHabitRecordRequest request,
         String email
     ) {
-        throw new UnsupportedOperationException("Not implemented yet");
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Habit habit = habitRepository.findById(habitId)
+            .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
+
+        if (!habit.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Habit does not belong to user");
+        }
+
+        HabitRecord habitRecord = new HabitRecord();
+
+        habitRecord.setHabit(habit);
+        habitRecord.setDate(LocalDate.now());
+        habitRecord.setCompleted(request.completed());
+
+        HabitRecord saved = habitRecordRepository.save(habitRecord);
+
+        return new HabitRecordResponse(
+            saved.getId(),
+            saved.getDate(),
+            saved.isCompleted()
+        );
     }
 }
