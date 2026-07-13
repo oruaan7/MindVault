@@ -1,15 +1,16 @@
 package com.mindvault.habit.service;
 
-import com.mindvault.habit.dto.CreateHabitRequest;
-import com.mindvault.habit.dto.HabitResponse;
-import com.mindvault.habit.dto.UpdateHabitRequest;
+import com.mindvault.habit.dto.*;
 import com.mindvault.habit.entity.Habit;
 import com.mindvault.habit.repository.HabitRepository;
+import com.mindvault.habitrecord.entity.HabitRecord;
+import com.mindvault.habitrecord.repository.HabitRecordRepository;
 import com.mindvault.user.entity.User;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ public class HabitService {
 
     private final HabitRepository habitRepository;
     private final UserRepository userRepository;
+    private final HabitRecordRepository habitRecordRepository;
 
     public HabitResponse create(CreateHabitRequest request, String email) {
 
@@ -35,6 +37,56 @@ public class HabitService {
         return toResponse(savedHabit);
     }
 
+    public List<TodayHabitResponse> findToday(String email) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        List<Habit> habits =
+            habitRepository.findAllByUserOrderByCreatedAtAsc(user);
+
+        LocalDate today = LocalDate.now();
+
+        return habits.stream()
+            .map(habit -> {
+
+                boolean completed = habitRecordRepository
+                    .findByHabitAndDate(habit, today)
+                    .map(HabitRecord::isCompleted)
+                    .orElse(false);
+
+                return new TodayHabitResponse(
+                    habit.getId(),
+                    habit.getTitle(),
+                    completed
+                );
+            })
+            .toList();
+    }
+
+    public TodaySummaryResponse todaySummary(String email) {
+
+        List<TodayHabitResponse> todayHabits = findToday(email);
+
+        int totalHabits = todayHabits.size();
+
+        int completedHabits = (int) todayHabits.stream()
+            .filter(TodayHabitResponse::completed)
+            .count();
+
+        int pendingHabits = totalHabits - completedHabits;
+
+        int completionPercentage = totalHabits == 0
+            ? 0
+            : (completedHabits * 100) / totalHabits;
+
+        return new TodaySummaryResponse(
+            totalHabits,
+            completedHabits,
+            pendingHabits,
+            completionPercentage
+        );
+    }
     public List<HabitResponse> findAll(String email) {
 
         User user = userRepository.findByEmail(email)

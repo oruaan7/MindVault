@@ -11,7 +11,10 @@ import java.util.UUID;
 
 public interface HabitRecordRepository extends JpaRepository<HabitRecord, UUID> {
 
-    Optional<HabitRecord> findByHabitAndDate(Habit habit, LocalDate date);
+    Optional<HabitRecord> findByHabitAndDate(
+        Habit habit,
+        LocalDate date
+    );
 
     List<HabitRecord> findAllByHabitOrderByDateDesc(Habit habit);
 

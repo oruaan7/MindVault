@@ -1,15 +1,12 @@
 package com.mindvault.habit.controller;
 
-import com.mindvault.habit.dto.CreateHabitRequest;
-import com.mindvault.habit.dto.HabitResponse;
-import com.mindvault.habit.dto.UpdateHabitRequest;
+import com.mindvault.habit.dto.*;
 import com.mindvault.habit.service.HabitService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +37,28 @@ public class HabitController {
         Authentication authentication
     ) {
         return habitService.update(id, request, authentication.getName());
+    }
+
+    @GetMapping("/today/summary")
+    public TodaySummaryResponse todaySummary(
+        Authentication authentication
+    ) {
+        System.out.println(">>> TODAY SUMMARY CONTROLLER <<<");
+        return habitService.todaySummary(
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/today")
+    public List<TodayHabitResponse> today(
+        Authentication authentication
+    ) {
+        System.out.println(">>> TODAY CONTROLLER <<<");
+        return habitService.findToday(
+            authentication.getName()
+        );
+
     }
 
     @DeleteMapping("/{id}")
