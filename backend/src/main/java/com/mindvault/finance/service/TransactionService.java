@@ -8,6 +8,7 @@ import com.mindvault.user.entity.User;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -62,6 +63,22 @@ public class TransactionService {
             transaction.getTransactionDate()
 
         );
+
+    }
+
+    public List<TransactionResponse> findAll(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        return transactionRepository
+            .findAllByUserOrderByCreatedAtDesc(user)
+            .stream()
+            .map(this::map)
+            .toList();
 
     }
 
