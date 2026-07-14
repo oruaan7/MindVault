@@ -5,6 +5,7 @@ import com.mindvault.project.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import com.mindvault.project.dto.ProjectDashboardResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -111,6 +112,17 @@ public class ProjectController {
 
         return projectService.search(
             q,
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/dashboard")
+    public ProjectDashboardResponse dashboard(
+        Authentication authentication
+    ) {
+
+        return projectService.dashboard(
             authentication.getName()
         );
 

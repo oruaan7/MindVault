@@ -195,4 +195,52 @@ public class ProjectService {
 
     }
 
+    public ProjectDashboardResponse dashboard(String email) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Project> projects = projectRepository.findAllByUserOrderByCreatedAtDesc(user);
+
+        return new ProjectDashboardResponse(
+
+            projects.size(),
+
+            projects.stream()
+                .filter(p -> p.getStatus() == ProjectStatus.TODO)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getStatus() == ProjectStatus.IN_PROGRESS)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getStatus() == ProjectStatus.DONE)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getStatus() == ProjectStatus.ON_HOLD)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getPriority() == ProjectPriority.LOW)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getPriority() == ProjectPriority.MEDIUM)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getPriority() == ProjectPriority.HIGH)
+                .count(),
+
+            projects.stream()
+                .filter(p -> p.getPriority() == ProjectPriority.CRITICAL)
+                .count()
+
+        );
+
+    }
+
 }
