@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mindvault.finance.dto.TransactionDashboardResponse;
 import com.mindvault.finance.entity.TransactionType;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -203,6 +204,42 @@ public class TransactionService {
             expenseCount
 
         );
+
+    }
+
+    public List<TransactionResponse> findByPeriod(
+
+        LocalDate startDate,
+
+        LocalDate endDate,
+
+        String email
+
+    ) {
+
+        User user = userRepository.findByEmail(email)
+
+            .orElseThrow(() ->
+
+                new IllegalArgumentException("User not found"));
+
+        return transactionRepository
+
+            .findByUserAndTransactionDateBetweenOrderByTransactionDateDesc(
+
+                user,
+
+                startDate,
+
+                endDate
+
+            )
+
+            .stream()
+
+            .map(this::map)
+
+            .toList();
 
     }
 

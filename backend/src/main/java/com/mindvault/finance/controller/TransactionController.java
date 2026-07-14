@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -82,6 +84,29 @@ public class TransactionController {
 
         return transactionService.dashboard(
             authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/period")
+    public List<TransactionResponse> findByPeriod(
+
+        @RequestParam LocalDate startDate,
+
+        @RequestParam LocalDate endDate,
+
+        Authentication authentication
+
+    ) {
+
+        return transactionService.findByPeriod(
+
+            startDate,
+
+            endDate,
+
+            authentication.getName()
+
         );
 
     }
