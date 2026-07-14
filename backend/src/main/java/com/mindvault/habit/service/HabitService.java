@@ -22,6 +22,27 @@ public class HabitService {
     private final UserRepository userRepository;
     private final HabitRecordRepository habitRecordRepository;
 
+    public HabitStreakResponse streak(UUID habitId, String email) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Habit habit = habitRepository.findById(habitId)
+            .orElseThrow(() -> new IllegalArgumentException("Habit not found"));
+
+        if (!habit.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Habit does not belong to user");
+        }
+
+        List<HabitRecord> records =
+            habitRecordRepository.findAllByHabitOrderByDateDesc(habit);
+
+        int currentStreak = calculateCurrentStreak(records);
+        int bestStreak = calculateBestStreak(records);
+
+        return new HabitStreakResponse(currentStreak, bestStreak);
+    }
+
     public HabitResponse create(CreateHabitRequest request, String email) {
 
         User user = userRepository.findByEmail(email)
@@ -171,6 +192,48 @@ public class HabitService {
         habitRepository.delete(habit);
 
         System.out.println(">>> HÁBITO EXCLUÍDO COM SUCESSO <<<");
+    }
+
+    private int calculateBestStreak(List<HabitRecord> records) {
+
+        int best = 0;
+        int current = 0;
+
+        for (HabitRecord record : records) {
+
+            if (record.isCompleted()) {
+
+                current++;
+
+                if (current > best) {
+                    best = current;
+                }
+
+            } else {
+
+                current = 0;
+
+            }
+
+        }
+
+        return best;
+    }
+
+    private int calculateCurrentStreak(List<HabitRecord> records) {
+
+        int streak = 0;
+
+        for (HabitRecord record : records) {
+
+            if (!record.isCompleted()) {
+                break;
+            }
+
+            streak++;
+        }
+
+        return streak;
     }
 
     private HabitResponse toResponse(Habit habit) {

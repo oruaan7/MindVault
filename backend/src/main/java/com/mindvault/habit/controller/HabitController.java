@@ -1,5 +1,6 @@
 package com.mindvault.habit.controller;
 
+import com.mindvault.habit.dto.HabitStreakResponse;
 import com.mindvault.habit.dto.*;
 import com.mindvault.habit.service.HabitService;
 import jakarta.validation.Valid;
@@ -37,6 +38,19 @@ public class HabitController {
         Authentication authentication
     ) {
         return habitService.update(id, request, authentication.getName());
+    }
+
+    @GetMapping("/{id}/streak")
+    public HabitStreakResponse streak(
+        @PathVariable UUID id,
+        Authentication authentication
+    ) {
+        System.out.println(">>> STREAK CONTROLLER <<<");
+        return habitService.streak(
+            id,
+            authentication.getName()
+        );
+
     }
 
     @GetMapping("/today/summary")
