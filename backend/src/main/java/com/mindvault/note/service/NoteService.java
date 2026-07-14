@@ -1,5 +1,6 @@
 package com.mindvault.note.service;
 
+import com.mindvault.note.dto.UpdateFavoriteRequest;
 import com.mindvault.note.dto.CreateNoteRequest;
 import com.mindvault.note.dto.NoteResponse;
 import com.mindvault.note.dto.UpdateNoteRequest;
@@ -78,6 +79,28 @@ public class NoteService {
         validateOwnership(note, user);
 
         noteRepository.delete(note);
+    }
+
+    public NoteResponse updateFavorite(
+        UUID id,
+        UpdateFavoriteRequest request,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Note note = noteRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Note not found"));
+
+        validateOwnership(note, user);
+
+        note.setFavorite(request.favorite());
+
+        Note updatedNote = noteRepository.save(note);
+
+        return map(updatedNote);
+
     }
 
     private void validateOwnership(Note note, User user) {

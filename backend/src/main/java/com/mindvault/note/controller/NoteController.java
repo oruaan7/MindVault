@@ -2,6 +2,7 @@ package com.mindvault.note.controller;
 
 import com.mindvault.note.dto.CreateNoteRequest;
 import com.mindvault.note.dto.NoteResponse;
+import com.mindvault.note.dto.UpdateFavoriteRequest;
 import com.mindvault.note.dto.UpdateNoteRequest;
 import com.mindvault.note.service.NoteService;
 import jakarta.validation.Valid;
@@ -49,5 +50,20 @@ public class NoteController {
         Authentication authentication
     ) {
         noteService.delete(id, authentication.getName());
+    }
+
+    @PatchMapping("/{id}/favorite")
+    public NoteResponse updateFavorite(
+        @PathVariable UUID id,
+        @RequestBody UpdateFavoriteRequest request,
+        Authentication authentication
+    ) {
+
+        return noteService.updateFavorite(
+            id,
+            request,
+            authentication.getName()
+        );
+
     }
 }
