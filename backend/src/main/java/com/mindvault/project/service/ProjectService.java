@@ -93,6 +93,25 @@ public class ProjectService {
 
     }
 
+    public void delete(
+        UUID id,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        Project project = projectRepository.findById(id)
+            .orElseThrow(() ->
+                new IllegalArgumentException("Project not found"));
+
+        validateOwnership(project, user);
+
+        projectRepository.delete(project);
+
+    }
+
     private void validateOwnership(
         Project project,
         User user

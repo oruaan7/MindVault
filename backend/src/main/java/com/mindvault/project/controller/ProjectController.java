@@ -6,6 +6,8 @@ import com.mindvault.project.dto.UpdateProjectRequest;
 import com.mindvault.project.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -54,6 +56,20 @@ public class ProjectController {
         return projectService.update(
             id,
             request,
+            authentication.getName()
+        );
+
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+        @PathVariable UUID id,
+        Authentication authentication
+    ) {
+
+        projectService.delete(
+            id,
             authentication.getName()
         );
 
