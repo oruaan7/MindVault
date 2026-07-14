@@ -1,9 +1,6 @@
 package com.mindvault.project.controller;
 
-import com.mindvault.project.dto.CreateProjectRequest;
-import com.mindvault.project.dto.ProjectResponse;
-import com.mindvault.project.dto.UpdateProjectRequest;
-import com.mindvault.project.dto.UpdateProjectStatusRequest;
+import com.mindvault.project.dto.*;
 import com.mindvault.project.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -84,6 +81,21 @@ public class ProjectController {
     ) {
 
         return projectService.updateStatus(
+            id,
+            request,
+            authentication.getName()
+        );
+
+    }
+
+    @PatchMapping("/{id}/priority")
+    public ProjectResponse updatePriority(
+        @PathVariable UUID id,
+        @Valid @RequestBody UpdateProjectPriorityRequest request,
+        Authentication authentication
+    ) {
+
+        return projectService.updatePriority(
             id,
             request,
             authentication.getName()
