@@ -2,13 +2,14 @@ package com.mindvault.project.controller;
 
 import com.mindvault.project.dto.CreateProjectRequest;
 import com.mindvault.project.dto.ProjectResponse;
+import com.mindvault.project.dto.UpdateProjectRequest;
 import com.mindvault.project.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/projects")
@@ -38,6 +39,21 @@ public class ProjectController {
     ) {
 
         return projectService.findAll(
+            authentication.getName()
+        );
+
+    }
+
+    @PutMapping("/{id}")
+    public ProjectResponse update(
+        @PathVariable UUID id,
+        @Valid @RequestBody UpdateProjectRequest request,
+        Authentication authentication
+    ) {
+
+        return projectService.update(
+            id,
+            request,
             authentication.getName()
         );
 
