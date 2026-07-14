@@ -9,6 +9,7 @@ import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -79,6 +80,50 @@ public class TransactionService {
             .stream()
             .map(this::map)
             .toList();
+
+    }
+
+    public TransactionResponse update(
+        UUID id,
+        CreateTransactionRequest request,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        Transaction transaction = transactionRepository.findById(id)
+            .orElseThrow(() ->
+                new IllegalArgumentException("Transaction not found"));
+
+        validateOwnership(transaction, user);
+
+        transaction.setTitle(request.title());
+        transaction.setDescription(request.description());
+        transaction.setAmount(request.amount());
+        transaction.setType(request.type());
+        transaction.setCategory(request.category());
+        transaction.setTransactionDate(request.transactionDate());
+
+        Transaction updatedTransaction = transactionRepository.save(transaction);
+
+        return map(updatedTransaction);
+
+    }
+
+    private void validateOwnership(
+        Transaction transaction,
+        User user
+    ) {
+
+        if (!transaction.getUser().getId().equals(user.getId())) {
+
+            throw new IllegalArgumentException(
+                "Transaction does not belong to user"
+            );
+
+        }
 
     }
 
