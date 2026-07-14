@@ -173,4 +173,26 @@ public class ProjectService {
 
     }
 
+    public List<ProjectResponse> search(
+        String query,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        return projectRepository
+            .findByUserAndTitleContainingIgnoreCaseOrUserAndDescriptionContainingIgnoreCaseOrderByCreatedAtDesc(
+                user,
+                query,
+                user,
+                query
+            )
+            .stream()
+            .map(this::map)
+            .toList();
+
+    }
+
 }

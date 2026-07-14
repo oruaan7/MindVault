@@ -11,4 +11,11 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
 
     List<Project> findAllByUserOrderByCreatedAtDesc(User user);
 
+    List<Project> findByUserAndTitleContainingIgnoreCaseOrUserAndDescriptionContainingIgnoreCaseOrderByCreatedAtDesc(
+        User user,
+        String title,
+        User sameUser,
+        String description
+    );
+
 }

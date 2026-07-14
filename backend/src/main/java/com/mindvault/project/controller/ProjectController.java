@@ -103,4 +103,17 @@ public class ProjectController {
 
     }
 
+    @GetMapping("/search")
+    public List<ProjectResponse> search(
+        @RequestParam String q,
+        Authentication authentication
+    ) {
+
+        return projectService.search(
+            q,
+            authentication.getName()
+        );
+
+    }
+
 }
