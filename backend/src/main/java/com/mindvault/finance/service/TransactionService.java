@@ -127,4 +127,23 @@ public class TransactionService {
 
     }
 
+    public void delete(
+        UUID id,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        Transaction transaction = transactionRepository.findById(id)
+            .orElseThrow(() ->
+                new IllegalArgumentException("Transaction not found"));
+
+        validateOwnership(transaction, user);
+
+        transactionRepository.delete(transaction);
+
+    }
+
 }

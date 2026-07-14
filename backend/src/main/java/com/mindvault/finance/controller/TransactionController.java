@@ -5,6 +5,8 @@ import com.mindvault.finance.dto.TransactionResponse;
 import com.mindvault.finance.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -58,5 +60,18 @@ public class TransactionController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+        @PathVariable UUID id,
+        Authentication authentication
+    ) {
+
+        transactionService.delete(
+            id,
+            authentication.getName()
+        );
+
+    }
 
 }
