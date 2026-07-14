@@ -1,9 +1,6 @@
 package com.mindvault.finance.controller;
 
-import com.mindvault.finance.dto.CreateTransactionRequest;
-import com.mindvault.finance.dto.TransactionBalanceResponse;
-import com.mindvault.finance.dto.TransactionDashboardResponse;
-import com.mindvault.finance.dto.TransactionResponse;
+import com.mindvault.finance.dto.*;
 import com.mindvault.finance.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -118,6 +115,17 @@ public class TransactionController {
     ) {
 
         return transactionService.balance(
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/summary")
+    public TransactionSummaryResponse summary(
+        Authentication authentication
+    ) {
+
+        return transactionService.summary(
             authentication.getName()
         );
 

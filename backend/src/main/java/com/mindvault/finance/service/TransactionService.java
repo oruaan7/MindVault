@@ -1,15 +1,13 @@
 package com.mindvault.finance.service;
 
-import com.mindvault.finance.dto.CreateTransactionRequest;
-import com.mindvault.finance.dto.TransactionBalanceResponse;
-import com.mindvault.finance.dto.TransactionResponse;
+import com.mindvault.finance.dto.*;
 import com.mindvault.finance.entity.Transaction;
 import com.mindvault.finance.repository.TransactionRepository;
+import com.mindvault.finance.dto.TransactionSummaryResponse;
 import com.mindvault.user.entity.User;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.mindvault.finance.dto.TransactionDashboardResponse;
 import com.mindvault.finance.entity.TransactionType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -267,6 +265,97 @@ public class TransactionService {
 
         return new TransactionBalanceResponse(
             totalIncome.subtract(totalExpense)
+        );
+
+    }
+
+    public TransactionSummaryResponse summary(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Transaction> transactions =
+            transactionRepository.findAllByUserOrderByCreatedAtDesc(user);
+
+        BigDecimal largestIncome = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.INCOME)
+
+            .map(Transaction::getAmount)
+
+            .max(BigDecimal::compareTo)
+
+            .orElse(BigDecimal.ZERO);
+
+        BigDecimal largestExpense = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+
+            .map(Transaction::getAmount)
+
+            .max(BigDecimal::compareTo)
+
+            .orElse(BigDecimal.ZERO);
+
+        BigDecimal averageIncome = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.INCOME)
+
+            .map(Transaction::getAmount)
+
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        long incomeCount = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.INCOME)
+
+            .count();
+
+        if (incomeCount > 0) {
+            averageIncome = averageIncome.divide(
+                BigDecimal.valueOf(incomeCount),
+                2,
+                java.math.RoundingMode.HALF_UP
+            );
+        }
+
+        BigDecimal averageExpense = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+
+            .map(Transaction::getAmount)
+
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        long expenseCount = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+
+            .count();
+
+        if (expenseCount > 0) {
+            averageExpense = averageExpense.divide(
+                BigDecimal.valueOf(expenseCount),
+                2,
+                java.math.RoundingMode.HALF_UP
+            );
+        }
+
+        return new TransactionSummaryResponse(
+
+            transactions.size(),
+
+            largestIncome,
+
+            largestExpense,
+
+            averageIncome,
+
+            averageExpense
+
         );
 
     }
