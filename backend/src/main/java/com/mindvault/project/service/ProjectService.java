@@ -3,6 +3,7 @@ package com.mindvault.project.service;
 import com.mindvault.project.dto.CreateProjectRequest;
 import com.mindvault.project.dto.ProjectResponse;
 import com.mindvault.project.dto.UpdateProjectRequest;
+import com.mindvault.project.dto.UpdateProjectStatusRequest;
 import com.mindvault.project.entity.Project;
 import com.mindvault.project.entity.ProjectPriority;
 import com.mindvault.project.entity.ProjectStatus;
@@ -124,6 +125,30 @@ public class ProjectService {
             );
 
         }
+
+    }
+
+    public ProjectResponse updateStatus(
+        UUID id,
+        UpdateProjectStatusRequest request,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        Project project = projectRepository.findById(id)
+            .orElseThrow(() ->
+                new IllegalArgumentException("Project not found"));
+
+        validateOwnership(project, user);
+
+        project.setStatus(request.status());
+
+        Project updatedProject = projectRepository.save(project);
+
+        return map(updatedProject);
 
     }
 
