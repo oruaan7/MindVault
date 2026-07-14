@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface GoalRepository extends JpaRepository<Goal, UUID> {
 
     List<Goal> findAllByUserOrderByCreatedAtAsc(User user);
-
+    long countByUser(User user);
 }

@@ -18,4 +18,5 @@ public interface NoteRepository extends JpaRepository<Note, UUID> {
         String content
     );
 
+    long countByUser(User user);
 }

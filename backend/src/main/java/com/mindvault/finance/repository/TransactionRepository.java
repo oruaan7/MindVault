@@ -17,4 +17,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
         LocalDate endDate
     );
 
+    long countByUser(User user);
 }

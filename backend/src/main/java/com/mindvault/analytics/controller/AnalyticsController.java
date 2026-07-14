@@ -1,7 +1,10 @@
 package com.mindvault.analytics.controller;
 
+import com.mindvault.analytics.dto.DashboardResponse;
 import com.mindvault.analytics.service.AnalyticsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,5 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnalyticsController {
 
     private final AnalyticsService analyticsService;
+
+    @GetMapping("/dashboard")
+    public DashboardResponse dashboard(
+        Authentication authentication
+    ) {
+
+        return analyticsService.dashboard(
+            authentication.getName()
+        );
+
+    }
 
 }

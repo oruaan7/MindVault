@@ -10,8 +10,6 @@ public record DashboardResponse(
 
     long totalNotes,
 
-    long totalStudies,
-
     long totalTransactions
 
 ) {
