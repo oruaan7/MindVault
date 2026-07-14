@@ -66,19 +66,33 @@ public class HabitService {
 
     public TodaySummaryResponse todaySummary(String email) {
 
-        List<TodayHabitResponse> todayHabits = findToday(email);
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        int totalHabits = todayHabits.size();
+        List<Habit> habits =
+            habitRepository.findAllByUserOrderByCreatedAtAsc(user);
 
-        int completedHabits = (int) todayHabits.stream()
-            .filter(TodayHabitResponse::completed)
+        LocalDate today = LocalDate.now();
+
+        int totalHabits = habits.size();
+
+        int completedHabits = (int) habits.stream()
+            .filter(habit ->
+                habitRecordRepository
+                    .findByHabitAndDate(habit, today)
+                    .map(HabitRecord::isCompleted)
+                    .orElse(false)
+            )
             .count();
 
+
         int pendingHabits = totalHabits - completedHabits;
+
 
         int completionPercentage = totalHabits == 0
             ? 0
             : (completedHabits * 100) / totalHabits;
+
 
         return new TodaySummaryResponse(
             totalHabits,
