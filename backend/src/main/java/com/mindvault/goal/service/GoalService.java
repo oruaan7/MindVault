@@ -2,6 +2,7 @@ package com.mindvault.goal.service;
 
 import com.mindvault.goal.dto.CreateGoalRequest;
 import com.mindvault.goal.dto.GoalResponse;
+import com.mindvault.goal.dto.UpdateGoalRequest;
 import com.mindvault.goal.entity.Goal;
 import com.mindvault.goal.repository.GoalRepository;
 import com.mindvault.user.entity.User;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,14 +20,10 @@ public class GoalService {
     private final GoalRepository goalRepository;
     private final UserRepository userRepository;
 
-    public GoalResponse create(
-        CreateGoalRequest request,
-        String email
-    ) {
+    public GoalResponse create(CreateGoalRequest request, String email) {
 
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() ->
-                new IllegalArgumentException("User not found"));
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Goal goal = new Goal();
 
@@ -38,36 +36,55 @@ public class GoalService {
 
         Goal savedGoal = goalRepository.save(goal);
 
-        return new GoalResponse(
-            savedGoal.getId(),
-            savedGoal.getTitle(),
-            savedGoal.getDescription(),
-            savedGoal.getTargetValue(),
-            savedGoal.getCurrentValue(),
-            savedGoal.isCompleted()
-        );
-
+        return map(savedGoal);
     }
 
     public List<GoalResponse> findAll(String email) {
 
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() ->
-                new IllegalArgumentException("User not found"));
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        return goalRepository
-            .findAllByUserOrderByCreatedAtAsc(user)
+        return goalRepository.findAllByUserOrderByCreatedAtAsc(user)
             .stream()
-            .map(goal -> new GoalResponse(
-                goal.getId(),
-                goal.getTitle(),
-                goal.getDescription(),
-                goal.getTargetValue(),
-                goal.getCurrentValue(),
-                goal.isCompleted()
-            ))
+            .map(this::map)
             .toList();
+    }
 
+    public GoalResponse update(
+        UUID id,
+        UpdateGoalRequest request,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Goal goal = goalRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Goal not found"));
+
+        if (!goal.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Goal does not belong to user");
+        }
+
+        goal.setTitle(request.title());
+        goal.setDescription(request.description());
+        goal.setTargetValue(request.targetValue());
+
+        Goal updatedGoal = goalRepository.save(goal);
+
+        return map(updatedGoal);
+    }
+
+    private GoalResponse map(Goal goal) {
+
+        return new GoalResponse(
+            goal.getId(),
+            goal.getTitle(),
+            goal.getDescription(),
+            goal.getTargetValue(),
+            goal.getCurrentValue(),
+            goal.isCompleted()
+        );
     }
 
 }
