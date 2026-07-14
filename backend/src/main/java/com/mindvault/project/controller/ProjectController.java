@@ -1,12 +1,33 @@
 package com.mindvault.project.controller;
 
+import com.mindvault.project.dto.CreateProjectRequest;
+import com.mindvault.project.dto.ProjectResponse;
+import com.mindvault.project.service.ProjectService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
 public class ProjectController {
+
+    private final ProjectService projectService;
+
+    @PostMapping
+    public ProjectResponse create(
+        @Valid
+        @RequestBody
+        CreateProjectRequest request,
+        Authentication authentication
+    ) {
+
+        return projectService.create(
+            request,
+            authentication.getName()
+        );
+
+    }
 
 }
