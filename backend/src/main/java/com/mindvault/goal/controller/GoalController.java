@@ -2,6 +2,7 @@ package com.mindvault.goal.controller;
 
 import com.mindvault.goal.dto.CreateGoalRequest;
 import com.mindvault.goal.dto.GoalResponse;
+import com.mindvault.goal.dto.UpdateGoalProgressRequest;
 import com.mindvault.goal.dto.UpdateGoalRequest;
 import com.mindvault.goal.service.GoalService;
 import jakarta.validation.Valid;
@@ -51,4 +52,12 @@ public class GoalController {
         goalService.delete(id, authentication.getName());
     }
 
+    @PatchMapping("/{id}/progress")
+    public GoalResponse updateProgress(
+        @PathVariable UUID id,
+        @Valid @RequestBody UpdateGoalProgressRequest request,
+        Authentication authentication
+    ) {
+        return goalService.updateProgress(id, request, authentication.getName());
+    }
 }

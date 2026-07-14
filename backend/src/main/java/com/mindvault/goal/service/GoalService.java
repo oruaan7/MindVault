@@ -2,6 +2,7 @@ package com.mindvault.goal.service;
 
 import com.mindvault.goal.dto.CreateGoalRequest;
 import com.mindvault.goal.dto.GoalResponse;
+import com.mindvault.goal.dto.UpdateGoalProgressRequest;
 import com.mindvault.goal.dto.UpdateGoalRequest;
 import com.mindvault.goal.entity.Goal;
 import com.mindvault.goal.repository.GoalRepository;
@@ -48,6 +49,31 @@ public class GoalService {
             .stream()
             .map(this::map)
             .toList();
+    }
+
+    public GoalResponse updateProgress(
+        UUID id,
+        UpdateGoalProgressRequest request,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Goal goal = goalRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Goal not found"));
+
+        validateOwnership(goal, user);
+
+        goal.setCurrentValue(request.currentValue());
+
+        goal.setCompleted(
+            goal.getCurrentValue() >= goal.getTargetValue()
+        );
+
+        Goal updatedGoal = goalRepository.save(goal);
+
+        return map(updatedGoal);
     }
 
     public GoalResponse update(
