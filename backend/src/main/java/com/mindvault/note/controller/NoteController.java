@@ -6,6 +6,7 @@ import com.mindvault.note.dto.UpdateNoteRequest;
 import com.mindvault.note.service.NoteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,4 +42,12 @@ public class NoteController {
         return noteService.update(id, request, authentication.getName());
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+        @PathVariable UUID id,
+        Authentication authentication
+    ) {
+        noteService.delete(id, authentication.getName());
+    }
 }

@@ -67,6 +67,19 @@ public class NoteService {
         return map(noteRepository.save(note));
     }
 
+    public void delete(UUID id, String email) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Note note = noteRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Note not found"));
+
+        validateOwnership(note, user);
+
+        noteRepository.delete(note);
+    }
+
     private void validateOwnership(Note note, User user) {
 
         if (!note.getUser().getId().equals(user.getId())) {
