@@ -1,6 +1,7 @@
 package com.mindvault.finance.controller;
 
 import com.mindvault.finance.dto.CreateTransactionRequest;
+import com.mindvault.finance.dto.TransactionBalanceResponse;
 import com.mindvault.finance.dto.TransactionDashboardResponse;
 import com.mindvault.finance.dto.TransactionResponse;
 import com.mindvault.finance.service.TransactionService;
@@ -107,6 +108,17 @@ public class TransactionController {
 
             authentication.getName()
 
+        );
+
+    }
+
+    @GetMapping("/balance")
+    public TransactionBalanceResponse balance(
+        Authentication authentication
+    ) {
+
+        return transactionService.balance(
+            authentication.getName()
         );
 
     }

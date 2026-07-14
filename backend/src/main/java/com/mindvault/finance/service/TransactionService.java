@@ -1,6 +1,7 @@
 package com.mindvault.finance.service;
 
 import com.mindvault.finance.dto.CreateTransactionRequest;
+import com.mindvault.finance.dto.TransactionBalanceResponse;
 import com.mindvault.finance.dto.TransactionResponse;
 import com.mindvault.finance.entity.Transaction;
 import com.mindvault.finance.repository.TransactionRepository;
@@ -240,6 +241,33 @@ public class TransactionService {
             .map(this::map)
 
             .toList();
+
+    }
+
+    public TransactionBalanceResponse balance(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Transaction> transactions =
+            transactionRepository.findAllByUserOrderByCreatedAtDesc(user);
+
+        BigDecimal totalIncome = transactions.stream()
+            .filter(t -> t.getType() == TransactionType.INCOME)
+            .map(Transaction::getAmount)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalExpense = transactions.stream()
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+            .map(Transaction::getAmount)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return new TransactionBalanceResponse(
+            totalIncome.subtract(totalExpense)
+        );
 
     }
 
