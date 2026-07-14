@@ -62,9 +62,7 @@ public class GoalService {
         Goal goal = goalRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Goal not found"));
 
-        if (!goal.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("Goal does not belong to user");
-        }
+        validateOwnership(goal, user);
 
         goal.setTitle(request.title());
         goal.setDescription(request.description());
@@ -75,8 +73,26 @@ public class GoalService {
         return map(updatedGoal);
     }
 
-    private GoalResponse map(Goal goal) {
+    public void delete(UUID id, String email) {
 
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Goal goal = goalRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Goal not found"));
+
+        validateOwnership(goal, user);
+
+        goalRepository.delete(goal);
+    }
+
+    private void validateOwnership(Goal goal, User user) {
+        if (!goal.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Goal does not belong to user");
+        }
+    }
+
+    private GoalResponse map(Goal goal) {
         return new GoalResponse(
             goal.getId(),
             goal.getTitle(),
