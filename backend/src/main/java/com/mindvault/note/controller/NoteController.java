@@ -1,9 +1,6 @@
 package com.mindvault.note.controller;
 
-import com.mindvault.note.dto.CreateNoteRequest;
-import com.mindvault.note.dto.NoteResponse;
-import com.mindvault.note.dto.UpdateFavoriteRequest;
-import com.mindvault.note.dto.UpdateNoteRequest;
+import com.mindvault.note.dto.*;
 import com.mindvault.note.service.NoteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +47,21 @@ public class NoteController {
         Authentication authentication
     ) {
         noteService.delete(id, authentication.getName());
+    }
+
+    @PatchMapping("/{id}/archive")
+    public NoteResponse updateArchived(
+        @PathVariable UUID id,
+        @RequestBody UpdateArchivedRequest request,
+        Authentication authentication
+    ) {
+
+        return noteService.updateArchived(
+            id,
+            request,
+            authentication.getName()
+        );
+
     }
 
     @PatchMapping("/{id}/favorite")
