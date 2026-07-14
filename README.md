@@ -41,14 +41,15 @@ O Mind Vault é uma plataforma de produtividade pessoal projetada para centraliz
 - Domain Dictionary
 - Modelagem UML do domínio
 - Definição da arquitetura inicial
-
-### 🚧 Em andamento
 - Backend (Spring Boot)
 - Configuração do banco de dados
+- Autenticação JWT
+
+
+### 🚧 Em andamento
+- Desenvolvimento dos módulos
 
 ### ⏳ Próximas etapas
-- Autenticação JWT
-- Desenvolvimento dos módulos
 - Front-end Angular
 - Docker
 - Deploy
