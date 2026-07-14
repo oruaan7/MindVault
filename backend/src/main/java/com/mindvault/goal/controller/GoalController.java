@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/goals")
 @RequiredArgsConstructor
@@ -17,17 +19,25 @@ public class GoalController {
 
     @PostMapping
     public GoalResponse create(
-
         @Valid
         @RequestBody
         CreateGoalRequest request,
-
         Authentication authentication
-
     ) {
 
         return goalService.create(
             request,
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping
+    public List<GoalResponse> findAll(
+        Authentication authentication
+    ) {
+
+        return goalService.findAll(
             authentication.getName()
         );
 
