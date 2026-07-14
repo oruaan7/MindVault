@@ -49,6 +49,19 @@ public class NoteController {
         noteService.delete(id, authentication.getName());
     }
 
+    @GetMapping("/search")
+    public List<NoteResponse> search(
+        @RequestParam String q,
+        Authentication authentication
+    ) {
+
+        return noteService.search(
+            q,
+            authentication.getName()
+        );
+
+    }
+
     @PatchMapping("/{id}/archive")
     public NoteResponse updateArchived(
         @PathVariable UUID id,

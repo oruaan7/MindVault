@@ -11,4 +11,11 @@ public interface NoteRepository extends JpaRepository<Note, UUID> {
 
     List<Note> findAllByUserOrderByCreatedAtDesc(User user);
 
+    List<Note> findByUserAndTitleContainingIgnoreCaseOrUserAndContentContainingIgnoreCaseOrderByCreatedAtDesc(
+        User user,
+        String title,
+        User sameUser,
+        String content
+    );
+
 }

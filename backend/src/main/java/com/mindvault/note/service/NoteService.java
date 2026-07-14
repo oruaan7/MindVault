@@ -78,6 +78,27 @@ public class NoteService {
         noteRepository.delete(note);
     }
 
+    public List<NoteResponse> search(
+        String query,
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return noteRepository
+            .findByUserAndTitleContainingIgnoreCaseOrUserAndContentContainingIgnoreCaseOrderByCreatedAtDesc(
+                user,
+                query,
+                user,
+                query
+            )
+            .stream()
+            .map(this::map)
+            .toList();
+
+    }
+
     public NoteResponse updateArchived(
         UUID id,
         UpdateArchivedRequest request,
