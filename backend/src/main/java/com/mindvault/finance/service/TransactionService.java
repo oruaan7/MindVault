@@ -8,6 +8,9 @@ import com.mindvault.user.entity.User;
 import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.mindvault.finance.dto.TransactionDashboardResponse;
+import com.mindvault.finance.entity.TransactionType;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -143,6 +146,63 @@ public class TransactionService {
         validateOwnership(transaction, user);
 
         transactionRepository.delete(transaction);
+
+    }
+
+    public TransactionDashboardResponse dashboard(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Transaction> transactions =
+            transactionRepository.findAllByUserOrderByCreatedAtDesc(user);
+
+        BigDecimal totalIncome = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.INCOME)
+
+            .map(Transaction::getAmount)
+
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalExpense = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+
+            .map(Transaction::getAmount)
+
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal balance = totalIncome.subtract(totalExpense);
+
+        long incomeCount = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.INCOME)
+
+            .count();
+
+        long expenseCount = transactions.stream()
+
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+
+            .count();
+
+        return new TransactionDashboardResponse(
+
+            totalIncome,
+
+            totalExpense,
+
+            balance,
+
+            incomeCount,
+
+            expenseCount
+
+        );
 
     }
 

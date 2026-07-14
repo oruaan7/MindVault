@@ -1,6 +1,7 @@
 package com.mindvault.finance.controller;
 
 import com.mindvault.finance.dto.CreateTransactionRequest;
+import com.mindvault.finance.dto.TransactionDashboardResponse;
 import com.mindvault.finance.dto.TransactionResponse;
 import com.mindvault.finance.service.TransactionService;
 import jakarta.validation.Valid;
@@ -69,6 +70,17 @@ public class TransactionController {
 
         transactionService.delete(
             id,
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/dashboard")
+    public TransactionDashboardResponse dashboard(
+        Authentication authentication
+    ) {
+
+        return transactionService.dashboard(
             authentication.getName()
         );
 
