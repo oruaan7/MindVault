@@ -11,6 +11,8 @@ import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProjectService {
@@ -31,15 +33,27 @@ public class ProjectService {
 
         project.setTitle(request.title());
         project.setDescription(request.description());
-
         project.setStatus(ProjectStatus.TODO);
         project.setPriority(ProjectPriority.MEDIUM);
-
         project.setUser(user);
 
-        Project savedProject = projectRepository.save(project);
+        return map(projectRepository.save(project));
 
-        return map(savedProject);
+    }
+
+    public List<ProjectResponse> findAll(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        return projectRepository
+            .findAllByUserOrderByCreatedAtDesc(user)
+            .stream()
+            .map(this::map)
+            .toList();
 
     }
 

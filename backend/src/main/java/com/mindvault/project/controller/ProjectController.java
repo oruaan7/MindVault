@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/projects")
 @RequiredArgsConstructor
@@ -25,6 +27,17 @@ public class ProjectController {
 
         return projectService.create(
             request,
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping
+    public List<ProjectResponse> findAll(
+        Authentication authentication
+    ) {
+
+        return projectService.findAll(
             authentication.getName()
         );
 
