@@ -9,6 +9,8 @@ import com.mindvault.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class NoteService {
@@ -35,12 +37,34 @@ public class NoteService {
 
         Note savedNote = noteRepository.save(note);
 
+        return map(savedNote);
+
+    }
+
+    public List<NoteResponse> findAll(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        return noteRepository
+            .findAllByUserOrderByCreatedAtDesc(user)
+            .stream()
+            .map(this::map)
+            .toList();
+
+    }
+
+    private NoteResponse map(Note note) {
+
         return new NoteResponse(
-            savedNote.getId(),
-            savedNote.getTitle(),
-            savedNote.getContent(),
-            savedNote.isFavorite(),
-            savedNote.isArchived()
+            note.getId(),
+            note.getTitle(),
+            note.getContent(),
+            note.isFavorite(),
+            note.isArchived()
         );
 
     }

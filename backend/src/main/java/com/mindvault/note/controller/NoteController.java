@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/notes")
 @RequiredArgsConstructor
@@ -25,6 +27,17 @@ public class NoteController {
 
         return noteService.create(
             request,
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping
+    public List<NoteResponse> findAll(
+        Authentication authentication
+    ) {
+
+        return noteService.findAll(
             authentication.getName()
         );
 
