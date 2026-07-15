@@ -6,6 +6,9 @@ import com.mindvault.analytics.dto.HabitAnalyticsResponse;
 import com.mindvault.finance.repository.TransactionRepository;
 import com.mindvault.analytics.dto.GoalAnalyticsResponse;
 import com.mindvault.goal.entity.Goal;
+import com.mindvault.analytics.dto.ProjectAnalyticsResponse;
+import com.mindvault.project.entity.Project;
+import com.mindvault.project.entity.ProjectStatus;
 import com.mindvault.goal.repository.GoalRepository;
 import com.mindvault.habit.repository.HabitRepository;
 import com.mindvault.habitrecord.repository.HabitRecordRepository;
@@ -222,6 +225,66 @@ public class AnalyticsService {
             completedGoals,
 
             pendingGoals,
+
+            completionRate
+
+        );
+
+    }
+
+    public ProjectAnalyticsResponse projects(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Project> projects = projectRepository.findAllByUser(user);
+
+        long totalProjects = projects.size();
+
+        long completedProjects = projects.stream()
+            .filter(project -> project.getStatus() == ProjectStatus.DONE)
+            .count();
+
+        long inProgressProjects = projects.stream()
+            .filter(project -> project.getStatus() == ProjectStatus.IN_PROGRESS)
+            .count();
+
+        long todoProjects = projects.stream()
+            .filter(project -> project.getStatus() == ProjectStatus.TODO)
+            .count();
+
+        long onHoldProjects = projects.stream()
+            .filter(project -> project.getStatus() == ProjectStatus.ON_HOLD)
+            .count();
+
+        BigDecimal completionRate = BigDecimal.ZERO;
+
+        if (totalProjects > 0) {
+
+            completionRate = BigDecimal.valueOf(completedProjects)
+                .multiply(BigDecimal.valueOf(100))
+                .divide(
+                    BigDecimal.valueOf(totalProjects),
+                    2,
+                    RoundingMode.HALF_UP
+                );
+
+        }
+
+        return new ProjectAnalyticsResponse(
+
+            totalProjects,
+
+            completedProjects,
+
+            inProgressProjects,
+
+            todoProjects,
+
+            onHoldProjects,
 
             completionRate
 
