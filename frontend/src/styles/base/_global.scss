@@ -1,0 +1,49 @@
+@use "../abstracts/colors" as *;
+@use "../abstracts/typography" as *;
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: $color-background;
+  color: $color-text;
+
+  font-family: $font-family;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+
+  line-height: 1.5;
+
+  overflow-x: hidden;
+
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+::selection {
+  background: rgba(59, 130, 246, .35);
+  color: white;
+}
