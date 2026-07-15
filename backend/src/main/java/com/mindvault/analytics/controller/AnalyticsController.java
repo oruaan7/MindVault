@@ -1,5 +1,6 @@
 package com.mindvault.analytics.controller;
 
+import com.mindvault.analytics.dto.AnalyticsResponse;
 import com.mindvault.analytics.dto.DashboardResponse;
 import com.mindvault.analytics.dto.FinanceAnalyticsResponse;
 import com.mindvault.analytics.dto.HabitAnalyticsResponse;
@@ -45,6 +46,17 @@ public class AnalyticsController {
     ) {
 
         return analyticsService.finance(
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping
+    public AnalyticsResponse analytics(
+        Authentication authentication
+    ) {
+
+        return analyticsService.analytics(
             authentication.getName()
         );
 

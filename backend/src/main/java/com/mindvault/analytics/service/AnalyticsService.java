@@ -1,5 +1,6 @@
 package com.mindvault.analytics.service;
 
+import com.mindvault.analytics.dto.AnalyticsResponse;
 import com.mindvault.analytics.dto.DashboardResponse;
 import com.mindvault.analytics.dto.HabitAnalyticsResponse;
 import com.mindvault.finance.repository.TransactionRepository;
@@ -159,6 +160,22 @@ public class AnalyticsService {
             incomeTransactions,
 
             expenseTransactions
+
+        );
+
+    }
+
+    public AnalyticsResponse analytics(
+        String email
+    ) {
+
+        return new AnalyticsResponse(
+
+            dashboard(email),
+
+            habits(email),
+
+            finance(email)
 
         );
 
