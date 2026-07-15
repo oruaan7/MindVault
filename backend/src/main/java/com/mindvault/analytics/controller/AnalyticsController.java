@@ -1,10 +1,8 @@
 package com.mindvault.analytics.controller;
 
 import com.mindvault.analytics.dto.*;
-import com.mindvault.analytics.dto.ProjectAnalyticsResponse;
 import com.mindvault.analytics.service.AnalyticsService;
 import lombok.RequiredArgsConstructor;
-import com.mindvault.analytics.dto.ProductivityResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
