@@ -11,5 +11,6 @@ public interface HabitRepository extends JpaRepository<Habit, UUID> {
 
     List<Habit> findByUser(User user);
     List<Habit> findAllByUserOrderByCreatedAtAsc(User user);
+    long countByUserAndActiveTrue(User user);
     long countByUser(User user);
 }

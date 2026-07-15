@@ -17,5 +17,8 @@ public interface HabitRecordRepository extends JpaRepository<HabitRecord, UUID> 
     );
 
     List<HabitRecord> findAllByHabitOrderByDateDesc(Habit habit);
-
+    long countByHabitInAndDateAndCompletedTrue(
+        List<Habit> habits,
+        LocalDate date
+    );
 }
