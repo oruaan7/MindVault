@@ -1,12 +1,8 @@
 package com.mindvault.analytics.service;
 
-import com.mindvault.analytics.dto.AnalyticsResponse;
-import com.mindvault.analytics.dto.DashboardResponse;
-import com.mindvault.analytics.dto.HabitAnalyticsResponse;
+import com.mindvault.analytics.dto.*;
 import com.mindvault.finance.repository.TransactionRepository;
-import com.mindvault.analytics.dto.GoalAnalyticsResponse;
 import com.mindvault.goal.entity.Goal;
-import com.mindvault.analytics.dto.ProjectAnalyticsResponse;
 import com.mindvault.project.entity.Project;
 import com.mindvault.project.entity.ProjectStatus;
 import com.mindvault.goal.repository.GoalRepository;
@@ -16,7 +12,6 @@ import com.mindvault.note.repository.NoteRepository;
 import com.mindvault.project.repository.ProjectRepository;
 import com.mindvault.user.entity.User;
 import com.mindvault.habit.entity.Habit;
-import com.mindvault.analytics.dto.FinanceAnalyticsResponse;
 import com.mindvault.finance.entity.Transaction;
 import com.mindvault.finance.entity.TransactionType;
 import java.math.BigDecimal;
@@ -287,6 +282,40 @@ public class AnalyticsService {
             onHoldProjects,
 
             completionRate
+
+        );
+
+    }
+
+    public ProductivityResponse productivity(
+        String email
+    ) {
+
+        HabitAnalyticsResponse habit = habits(email);
+
+        GoalAnalyticsResponse goal = goals(email);
+
+        ProjectAnalyticsResponse project = projects(email);
+
+        BigDecimal overall =
+            habit.completionRate()
+                .add(goal.completionRate())
+                .add(project.completionRate())
+                .divide(
+                    BigDecimal.valueOf(3),
+                    2,
+                    RoundingMode.HALF_UP
+                );
+
+        return new ProductivityResponse(
+
+            habit.completionRate(),
+
+            goal.completionRate(),
+
+            project.completionRate(),
+
+            overall
 
         );
 
