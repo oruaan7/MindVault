@@ -1,9 +1,6 @@
 package com.mindvault.analytics.controller;
 
-import com.mindvault.analytics.dto.AnalyticsResponse;
-import com.mindvault.analytics.dto.DashboardResponse;
-import com.mindvault.analytics.dto.FinanceAnalyticsResponse;
-import com.mindvault.analytics.dto.HabitAnalyticsResponse;
+import com.mindvault.analytics.dto.*;
 import com.mindvault.analytics.service.AnalyticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -57,6 +54,17 @@ public class AnalyticsController {
     ) {
 
         return analyticsService.analytics(
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/goals")
+    public GoalAnalyticsResponse goals(
+        Authentication authentication
+    ) {
+
+        return analyticsService.goals(
             authentication.getName()
         );
 

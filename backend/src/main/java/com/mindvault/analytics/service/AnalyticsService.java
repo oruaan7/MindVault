@@ -4,6 +4,8 @@ import com.mindvault.analytics.dto.AnalyticsResponse;
 import com.mindvault.analytics.dto.DashboardResponse;
 import com.mindvault.analytics.dto.HabitAnalyticsResponse;
 import com.mindvault.finance.repository.TransactionRepository;
+import com.mindvault.analytics.dto.GoalAnalyticsResponse;
+import com.mindvault.goal.entity.Goal;
 import com.mindvault.goal.repository.GoalRepository;
 import com.mindvault.habit.repository.HabitRepository;
 import com.mindvault.habitrecord.repository.HabitRecordRepository;
@@ -176,6 +178,52 @@ public class AnalyticsService {
             habits(email),
 
             finance(email)
+
+        );
+
+    }
+
+    public GoalAnalyticsResponse goals(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Goal> goals = goalRepository.findAllByUser(user);
+
+        long totalGoals = goals.size();
+
+        long completedGoals = goals.stream()
+            .filter(Goal::isCompleted)
+            .count();
+
+        long pendingGoals = totalGoals - completedGoals;
+
+        BigDecimal completionRate = BigDecimal.ZERO;
+
+        if (totalGoals > 0) {
+
+            completionRate = BigDecimal.valueOf(completedGoals)
+                .multiply(BigDecimal.valueOf(100))
+                .divide(
+                    BigDecimal.valueOf(totalGoals),
+                    2,
+                    RoundingMode.HALF_UP
+                );
+
+        }
+
+        return new GoalAnalyticsResponse(
+
+            totalGoals,
+
+            completedGoals,
+
+            pendingGoals,
+
+            completionRate
 
         );
 
