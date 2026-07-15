@@ -1,0 +1,38 @@
+@use "../../../../../styles/abstracts/colors" as *;
+@use "../../../../../styles/abstracts/spacing" as *;
+
+.sidebar{
+
+    background:$color-surface;
+
+    border-right:1px solid $color-border;
+
+    height:100%;
+
+    padding:$space-5;
+
+}
+
+.sidebar ul{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:$space-4;
+
+}
+
+.sidebar li{
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.sidebar li:hover{
+
+    color:$color-primary;
+
+}

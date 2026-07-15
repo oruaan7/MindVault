@@ -47,3 +47,22 @@ body {
   background: rgba(59, 130, 246, .35);
   color: white;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-semibold;
+}
+
+a {
+  transition: .25s;
+}
+
+a:hover {
+  opacity: .85;
+}
+
+

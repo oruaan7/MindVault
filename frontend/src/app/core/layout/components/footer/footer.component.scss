@@ -1,0 +1,17 @@
+@use "../../../../../styles/abstracts/colors" as *;
+
+.footer{
+
+    height:50px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:$color-surface;
+
+    border-top:1px solid $color-border;
+
+}
