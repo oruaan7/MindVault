@@ -10,6 +10,9 @@ import com.mindvault.note.repository.NoteRepository;
 import com.mindvault.project.repository.ProjectRepository;
 import com.mindvault.user.entity.User;
 import com.mindvault.habit.entity.Habit;
+import com.mindvault.analytics.dto.FinanceAnalyticsResponse;
+import com.mindvault.finance.entity.Transaction;
+import com.mindvault.finance.entity.TransactionType;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -105,6 +108,57 @@ public class AnalyticsService {
             completedToday,
 
             completionRate
+
+        );
+
+    }
+
+    public FinanceAnalyticsResponse finance(
+        String email
+    ) {
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() ->
+                new IllegalArgumentException("User not found"));
+
+        List<Transaction> transactions =
+            transactionRepository.findAllByUser(user);
+
+        BigDecimal totalIncome = transactions.stream()
+            .filter(t -> t.getType() == TransactionType.INCOME)
+            .map(Transaction::getAmount)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalExpense = transactions.stream()
+            .filter(t -> t.getType() == TransactionType.EXPENSE)
+            .map(Transaction::getAmount)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal balance = totalIncome.subtract(totalExpense);
+
+        long incomeTransactions =
+            transactionRepository.countByUserAndType(
+                user,
+                TransactionType.INCOME
+            );
+
+        long expenseTransactions =
+            transactionRepository.countByUserAndType(
+                user,
+                TransactionType.EXPENSE
+            );
+
+        return new FinanceAnalyticsResponse(
+
+            balance,
+
+            totalIncome,
+
+            totalExpense,
+
+            incomeTransactions,
+
+            expenseTransactions
 
         );
 

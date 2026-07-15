@@ -1,6 +1,7 @@
 package com.mindvault.analytics.controller;
 
 import com.mindvault.analytics.dto.DashboardResponse;
+import com.mindvault.analytics.dto.FinanceAnalyticsResponse;
 import com.mindvault.analytics.dto.HabitAnalyticsResponse;
 import com.mindvault.analytics.service.AnalyticsService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,17 @@ public class AnalyticsController {
     ) {
 
         return analyticsService.habits(
+            authentication.getName()
+        );
+
+    }
+
+    @GetMapping("/finance")
+    public FinanceAnalyticsResponse finance(
+        Authentication authentication
+    ) {
+
+        return analyticsService.finance(
             authentication.getName()
         );
 
