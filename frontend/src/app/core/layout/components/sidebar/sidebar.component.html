@@ -1,25 +1,31 @@
-<aside class="sidebar">
+<nav class="sidebar">
 
-    <nav>
+    <div class="logo">
 
-        <ul>
+        MindVault
 
-            <li>Dashboard</li>
+    </div>
 
-            <li>Habits</li>
+    <ul>
 
-            <li>Goals</li>
+        @for(item of items; track item.route){
 
-            <li>Projects</li>
+            <li>
 
-            <li>Notes</li>
+                <a
 
-            <li>Finance</li>
+                    [routerLink]="item.route"
 
-            <li>Analytics</li>
+                    routerLinkActive="active">
 
-        </ul>
+                    {{ item.label }}
 
-    </nav>
+                </a>
 
-</aside>
+            </li>
+
+        }
+
+    </ul>
+
+</nav>
