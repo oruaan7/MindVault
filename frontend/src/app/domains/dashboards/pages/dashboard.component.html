@@ -1,15 +1,49 @@
-<div class="dashboard">
+<h1>
 
-    <h1>
+    Dashboard
 
-        Dashboard
+</h1>
 
-    </h1>
+@if(state.loading()){
 
-    <p>
+    <p>Carregando...</p>
 
-        Bem-vindo ao MindVault.
+}
 
-    </p>
+@if(state.dashboard(); as dashboard){
+
+<div class="cards">
+
+    <app-stat-card
+
+        title="Hábitos"
+
+        [value]="dashboard.totalHabits" />
+
+    <app-stat-card
+
+        title="Metas"
+
+        [value]="dashboard.totalGoals" />
+
+    <app-stat-card
+
+        title="Projetos"
+
+        [value]="dashboard.totalProjects" />
+
+    <app-stat-card
+
+        title="Notas"
+
+        [value]="dashboard.totalNotes" />
+
+    <app-stat-card
+
+        title="Transações"
+
+        [value]="dashboard.totalTransactions" />
 
 </div>
+
+}
