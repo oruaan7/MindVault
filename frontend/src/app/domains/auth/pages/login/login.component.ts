@@ -5,6 +5,9 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthStateService } from '../../../../core/auth/services/auth-state.service';
 
 @Component({
   selector: 'app-login',
@@ -19,38 +22,27 @@ import {
 export class LoginComponent {
 
   private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+
+  readonly authState = inject(AuthStateService);
 
   readonly form = this.fb.nonNullable.group({
 
-    email: [
+    email: ['', [Validators.required, Validators.email]],
 
-      '',
-
-      [
-
-        Validators.required,
-
-        Validators.email
-
-      ]
-
-    ],
-
-    password: [
-
-      '',
-
-      [
-
-        Validators.required,
-
-        Validators.minLength(6)
-
-      ]
-
-    ]
+    password: ['', [Validators.required]]
 
   });
+
+  constructor() {
+
+    if (this.authState.authenticated()) {
+
+      this.router.navigate(['/dashboard']);
+
+    }
+
+  }
 
   login(): void {
 
@@ -62,7 +54,7 @@ export class LoginComponent {
 
     }
 
-    console.log(this.form.getRawValue());
+    this.authState.login(this.form.getRawValue());
 
   }
 

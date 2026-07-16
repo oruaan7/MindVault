@@ -1,60 +1,49 @@
-<div class="login-page">
+<form [formGroup]="form" (ngSubmit)="login()">
 
-    <div class="login-card">
+    <div class="field">
 
-        <h1>MindVault</h1>
+        <label>Email</label>
 
-        <p>
-
-            Seu segundo cérebro digital
-
-        </p>
-
-        <form
-            [formGroup]="form"
-            (ngSubmit)="login()">
-
-            <div class="field">
-
-                <label>
-
-                    Email
-
-                </label>
-
-                <input
-
-                    type="email"
-
-                    formControlName="email">
-
-            </div>
-
-            <div class="field">
-
-                <label>
-
-                    Senha
-
-                </label>
-
-                <input
-
-                    type="password"
-
-                    formControlName="password">
-
-            </div>
-
-            <button
-                type="submit">
-
-                Entrar
-
-            </button>
-
-        </form>
+        <input
+            type="email"
+            formControlName="email">
 
     </div>
 
-</div>
+    <div class="field">
+
+        <label>Senha</label>
+
+        <input
+            type="password"
+            formControlName="password">
+
+    </div>
+
+    @if (authState.error()) {
+
+        <p class="error">
+
+            {{ authState.error() }}
+
+        </p>
+
+    }
+
+    <button
+        type="submit"
+        [disabled]="authState.loading()">
+
+        @if (authState.loading()) {
+
+            Entrando...
+
+        } @else {
+
+            Entrar
+
+        }
+
+    </button>
+
+</form>
