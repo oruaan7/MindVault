@@ -1,9 +1,19 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection
+} from '@angular/core';
+
+import {
+  provideHttpClient,
+  withInterceptors
+} from '@angular/common/http';
+
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { provideZoneChangeDetection } from '@angular/core';
 
 import { routes } from './app.routes';
+
+import { jwtInterceptor } from './core/auth/interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
 
@@ -20,7 +30,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     provideHttpClient(
-      withInterceptorsFromDi()
+
+      withInterceptors([
+
+        jwtInterceptor
+
+      ])
+
     )
 
   ]
