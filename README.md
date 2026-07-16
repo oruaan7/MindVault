@@ -44,12 +44,11 @@ O Mind Vault é uma plataforma de produtividade pessoal projetada para centraliz
 - Backend (Spring Boot)
 - Configuração do banco de dados
 - Autenticação JWT
-
-
-### 🚧 Em andamento
 - Desenvolvimento dos módulos
 
-### ⏳ Próximas etapas
+### 🚧 Em andamento
 - Front-end Angular
+
+### ⏳ Próximas etapas
 - Docker
 - Deploy
