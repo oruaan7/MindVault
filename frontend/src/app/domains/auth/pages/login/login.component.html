@@ -1,0 +1,60 @@
+<div class="login-page">
+
+    <div class="login-card">
+
+        <h1>MindVault</h1>
+
+        <p>
+
+            Seu segundo cérebro digital
+
+        </p>
+
+        <form
+            [formGroup]="form"
+            (ngSubmit)="login()">
+
+            <div class="field">
+
+                <label>
+
+                    Email
+
+                </label>
+
+                <input
+
+                    type="email"
+
+                    formControlName="email">
+
+            </div>
+
+            <div class="field">
+
+                <label>
+
+                    Senha
+
+                </label>
+
+                <input
+
+                    type="password"
+
+                    formControlName="password">
+
+            </div>
+
+            <button
+                type="submit">
+
+                Entrar
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
