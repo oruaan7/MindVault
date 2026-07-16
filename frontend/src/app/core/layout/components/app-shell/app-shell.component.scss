@@ -1,47 +1,29 @@
-.layout{
+.layout {
 
-    display:grid;
+    display: flex;
 
-    grid-template-columns:280px 1fr;
-
-    grid-template-rows:72px 1fr 50px;
-
-    grid-template-areas:
-
-        "header header"
-
-        "sidebar content"
-
-        "footer footer";
-
-    height:100vh;
+    height: 100vh;
 
 }
 
-app-header{
+.main {
 
-    grid-area:header;
+    flex: 1;
 
-}
+    display: flex;
 
-app-sidebar{
+    flex-direction: column;
 
-    grid-area:sidebar;
-
-}
-
-.content{
-
-    grid-area:content;
-
-    overflow:auto;
-
-    padding:24px;
+    background: #f3f4f6;
 
 }
 
-app-footer{
+.content {
 
-    grid-area:footer;
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 2rem;
 
 }

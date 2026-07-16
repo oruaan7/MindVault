@@ -1,15 +1,17 @@
 <div class="layout">
 
-    <app-header />
-
     <app-sidebar />
 
-    <main class="content">
+    <div class="main">
 
-        <router-outlet />
+        <app-header />
 
-    </main>
+        <main class="content">
 
-    <app-footer />
+            <router-outlet />
+
+        </main>
+
+    </div>
 
 </div>

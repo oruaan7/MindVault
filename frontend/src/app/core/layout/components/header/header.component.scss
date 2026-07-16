@@ -1,53 +1,69 @@
-@use "../../../../../styles/abstracts/colors" as *;
-@use "../../../../../styles/abstracts/spacing" as *;
-@use "../../../../../styles/abstracts/typography" as *;
-
 .header {
 
     height: 72px;
 
-    background: $color-surface;
-
-    border-bottom: 1px solid $color-border;
-
     display: flex;
-
-    justify-content: space-between;
 
     align-items: center;
 
-    padding: 0 $space-5;
+    justify-content: space-between;
+
+    padding: 0 2rem;
+
+    background: white;
+
+    border-bottom: 1px solid #e5e7eb;
 
 }
 
-.header__logo{
+.page-title h2 {
 
-    font-size: $font-size-xl;
+    margin: 0;
 
-    font-weight: $font-weight-bold;
+    font-size: 1.5rem;
 
-    color: $color-primary;
+    font-weight: 700;
 
 }
 
-.header__profile{
+.actions {
 
-    width: 42px;
+    display: flex;
 
-    height: 42px;
+    align-items: center;
 
-    border-radius: 50%;
+    gap: 1rem;
 
-    background: $color-primary;
+}
 
-    display:flex;
+.user {
 
-    justify-content:center;
+    font-weight: 500;
 
-    align-items:center;
+    color: #4b5563;
 
-    color:white;
+}
 
-    font-size:20px;
+button {
+
+    padding: .6rem 1rem;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #dc2626;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+button:hover {
+
+    background: #b91c1c;
 
 }
