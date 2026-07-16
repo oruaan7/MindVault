@@ -1,49 +1,57 @@
-<h1>
+<section class="dashboard">
 
-    Dashboard
+    <header class="dashboard-header">
 
-</h1>
+        <h1>
 
-@if(state.loading()){
+            Dashboard
 
-    <p>Carregando...</p>
+        </h1>
 
-}
+        <p>
 
-@if(state.dashboard(); as dashboard){
+            Bem-vindo ao seu segundo cérebro digital.
 
-<div class="cards">
+        </p>
 
-    <app-stat-card
+    </header>
 
-        title="Hábitos"
+    @if(state.loading()){
 
-        [value]="dashboard.totalHabits" />
+        <div class="loading">
 
-    <app-stat-card
+            Carregando dashboard...
 
-        title="Metas"
+        </div>
 
-        [value]="dashboard.totalGoals" />
+    }
 
-    <app-stat-card
+    @if(state.dashboard(); as dashboard){
 
-        title="Projetos"
+        <section class="cards">
 
-        [value]="dashboard.totalProjects" />
+            <app-stat-card
+                title="Hábitos"
+                [value]="dashboard.totalHabits"/>
 
-    <app-stat-card
+            <app-stat-card
+                title="Metas"
+                [value]="dashboard.totalGoals"/>
 
-        title="Notas"
+            <app-stat-card
+                title="Projetos"
+                [value]="dashboard.totalProjects"/>
 
-        [value]="dashboard.totalNotes" />
+            <app-stat-card
+                title="Notas"
+                [value]="dashboard.totalNotes"/>
 
-    <app-stat-card
+            <app-stat-card
+                title="Transações"
+                [value]="dashboard.totalTransactions"/>
 
-        title="Transações"
+        </section>
 
-        [value]="dashboard.totalTransactions" />
+    }
 
-</div>
-
-}
+</section>
