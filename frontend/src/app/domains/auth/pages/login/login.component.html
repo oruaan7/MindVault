@@ -30,20 +30,14 @@
 
     }
 
-    <button
+    <app-button
+
         type="submit"
+
+        [text]="authState.loading() ? 'Entrando...' : 'Entrar'"
+
         [disabled]="authState.loading()">
 
-        @if (authState.loading()) {
-
-            Entrando...
-
-        } @else {
-
-            Entrar
-
-        }
-
-    </button>
+    </app-button>
 
 </form>

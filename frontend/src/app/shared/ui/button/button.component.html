@@ -1,0 +1,17 @@
+<button
+
+    [type]="type()"
+
+    [disabled]="disabled()"
+
+    [class.primary]="variant() === 'primary'"
+
+    [class.secondary]="variant() === 'secondary'"
+
+    [class.danger]="variant() === 'danger'"
+
+    (click)="click()">
+
+    {{ text() }}
+
+</button>

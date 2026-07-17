@@ -1,3 +1,4 @@
+import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -14,7 +15,8 @@ import { AuthStateService } from '../../../../core/auth/services/auth-state.serv
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ButtonComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
