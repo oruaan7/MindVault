@@ -14,6 +14,7 @@ export const routes: Routes = [
         .then(m => m.LoginComponent)
 
   },
+
   {
 
     path: '',
@@ -43,15 +44,20 @@ export const routes: Routes = [
       },
 
       {
-
         path: 'dashboard',
 
         loadComponent: () =>
           import('./domains/dashboards/pages/dashboard.component')
 
             .then(m => m.DashboardComponent)
+      },
 
-      }
+      {
+        path: 'habits',
+        loadComponent: () =>
+            import('./domains/habits/pages/habits.component')
+                .then(m => m.HabitsComponent)
+      },
     ]
 
   },

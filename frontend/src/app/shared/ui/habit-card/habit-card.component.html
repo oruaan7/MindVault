@@ -1,0 +1,28 @@
+<div class="habit-card">
+
+    <div class="header">
+
+        <h3>
+
+            {{ habit().title }}
+
+        </h3>
+
+        <span
+            class="badge"
+            [class.active]="habit().active"
+            [class.inactive]="!habit().active">
+
+            {{ habit().active ? 'Ativo' : 'Inativo' }}
+
+        </span>
+
+    </div>
+
+    <p>
+
+        {{ habit().description }}
+
+    </p>
+
+</div>
