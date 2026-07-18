@@ -1,1 +1,70 @@
-/* MindVault Design Tokens - Globals */
+/* ==========================================================
+   MindVault Global Styles
+   ========================================================== */
+
+@use '../abstracts/colors' as *;
+@use '../abstracts/typography' as *;
+
+html {
+
+    font-family: $font-family-base;
+
+    background-color: $color-background;
+
+    color: $color-text-primary;
+
+}
+
+body {
+
+    font-family: inherit;
+
+    font-size: $font-size-md;
+
+    font-weight: $font-weight-regular;
+
+    line-height: $line-height-normal;
+
+    background-color: inherit;
+
+    color: inherit;
+
+}
+
+/* Text Selection */
+
+::selection {
+
+    background-color: $color-primary;
+
+    color: white;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: $color-background;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: $color-border;
+
+    border-radius: 9999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: $color-text-muted;
+
+}
