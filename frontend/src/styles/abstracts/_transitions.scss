@@ -1,1 +1,51 @@
-/* MindVault Design Tokens - Transitions */
+/* ==========================================================
+   MindVault Design Tokens - Transitions
+   ========================================================== */
+
+/* Duration */
+
+$transition-fast: 150ms;
+$transition-normal: 250ms;
+$transition-slow: 350ms;
+
+/* Timing Functions */
+
+$ease-default: ease;
+
+$ease-in: ease-in;
+
+$ease-out: ease-out;
+
+$ease-in-out: ease-in-out;
+
+/* Common Transitions */
+
+$transition-color:
+    color
+    $transition-normal
+    $ease-default;
+
+$transition-background:
+    background-color
+    $transition-normal
+    $ease-default;
+
+$transition-border:
+    border-color
+    $transition-normal
+    $ease-default;
+
+$transition-opacity:
+    opacity
+    $transition-normal
+    $ease-default;
+
+$transition-transform:
+    transform
+    $transition-normal
+    $ease-default;
+
+$transition-all:
+    all
+    $transition-normal
+    $ease-default;
