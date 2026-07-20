@@ -1,5 +1,7 @@
 @use '../../../../../styles/abstracts/colors' as *;
 @use '../../../../../styles/abstracts/shadows' as *;
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/typography' as *;
 
 .sidebar {
 
@@ -7,8 +9,34 @@
 
     height: 100vh;
 
-    background-color: $color-surface;
+    background: $color-surface;
 
     box-shadow: $shadow-sm;
+
+    padding: $space-6;
+
+}
+
+nav {
+
+    margin-top: $space-6;
+
+}
+
+ul {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: $space-4;
+
+}
+
+li {
+
+    font-size: $font-size-md;
+
+    color: $color-text-primary;
 
 }

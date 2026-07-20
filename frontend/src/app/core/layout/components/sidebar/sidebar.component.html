@@ -1,3 +1,21 @@
 <aside class="sidebar">
 
+    <nav>
+
+        <ul>
+
+            @for (item of items; track item.route) {
+
+                <li>
+
+                    {{ item.label }}
+
+                </li>
+
+            }
+
+        </ul>
+
+    </nav>
+
 </aside>

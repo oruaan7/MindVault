@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'mv-sidebar',
@@ -6,4 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+
+  private readonly navigation =
+    inject(NavigationService);
+
+  readonly items =
+    this.navigation.getItems();
+
+}
