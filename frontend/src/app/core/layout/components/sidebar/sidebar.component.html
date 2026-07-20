@@ -6,6 +6,10 @@
             MindVault
         </span>
 
+        <span class="material-symbols-rounded">
+            dashboard
+        </span>
+
     </div>
 
     <nav>
@@ -16,11 +20,19 @@
 
                 <li>
 
-                    <a [routerLink]="item.route">
+                <a
+                    [routerLink]="item.route"
+                    routerLinkActive="active">
 
-                        {{ item.label }}
+                    <mat-icon fontIcon="{{ item.icon }}"></mat-icon>
 
-                    </a>
+                    <span>
+
+                    {{ item.label }}
+
+                    </span>
+
+                </a>
 
                 </li>
 

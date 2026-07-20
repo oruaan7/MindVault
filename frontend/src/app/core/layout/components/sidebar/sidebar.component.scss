@@ -67,22 +67,48 @@ li {
 
 a {
 
-    display: block;
+  display: flex;
 
-    text-decoration: none;
+  align-items: center;
 
-    color: inherit;
+  gap: $space-3;
 
-    padding: $space-3 $space-4;
+  padding: $space-3 $space-4;
 
-    border-radius: $radius-md;
+  border-radius: $radius-lg;
 
-    transition: background-color .2s ease;
+  text-decoration: none;
+
+  color: $color-text-secondary;
+
+  font-weight: $font-weight-medium;
+
+  transition: all .2s ease;
 
 }
 
 a:hover {
 
-    background: rgba(255,255,255,.05);
+  background: $color-surface-secondary;
+
+  color: $color-text-primary;
+
+}
+
+a.active {
+
+  background: rgba(37,99,235,.12);
+
+  color: $color-primary;
+
+}
+
+mat-icon {
+
+  font-size: 20px;
+
+  width: 20px;
+
+  height: 20px;
 
 }
