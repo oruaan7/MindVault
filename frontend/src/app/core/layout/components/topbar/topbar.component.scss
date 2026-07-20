@@ -1,0 +1,66 @@
+@use '../../../../../styles/abstracts/colors' as *;
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/radius' as *;
+@use '../../../../../styles/abstracts/typography' as *;
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: $space-8;
+}
+
+.topbar__left h1 {
+  margin: 0;
+
+  color: $color-text-primary;
+
+  font-size: $font-size-3xl;
+
+  font-weight: $font-weight-semibold;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid $color-border;
+  border-radius: $radius-full;
+
+  background: $color-surface;
+
+  cursor: pointer;
+
+  transition: background .2s ease;
+}
+
+.icon-button:hover {
+  background: $color-surface-secondary;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: $radius-full;
+
+  background: $color-primary;
+  color: white;
+
+  font-weight: $font-weight-semibold;
+}
