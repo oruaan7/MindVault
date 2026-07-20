@@ -1,0 +1,18 @@
+@use '../../../../../styles/abstracts/colors' as *;
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/typography' as *;
+
+.dashboard {
+  padding: $space-8;
+}
+
+h1 {
+  margin-bottom: $space-2;
+  color: $color-text-primary;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+}
+
+p {
+  color: $color-text-secondary;
+}
