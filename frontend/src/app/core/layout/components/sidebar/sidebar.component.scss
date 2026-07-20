@@ -1,0 +1,14 @@
+@use '../../../../../styles/abstracts/colors' as *;
+@use '../../../../../styles/abstracts/shadows' as *;
+
+.sidebar {
+
+    width: 280px;
+
+    height: 100vh;
+
+    background-color: $color-surface;
+
+    box-shadow: $shadow-sm;
+
+}
