@@ -2,6 +2,8 @@
 @use '../../../../../styles/abstracts/shadows' as *;
 @use '../../../../../styles/abstracts/spacing' as *;
 @use '../../../../../styles/abstracts/typography' as *;
+@use '../../../../../styles/abstracts/radius' as *;
+
 
 .sidebar {
 
@@ -38,5 +40,49 @@ li {
     font-size: $font-size-md;
 
     color: $color-text-primary;
+
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    height: 72px;
+
+    margin-bottom: $space-8;
+
+}
+
+.brand__title {
+
+    font-size: $font-size-xl;
+
+    font-weight: $font-weight-bold;
+
+    color: $color-text-primary;
+
+}
+
+a {
+
+    display: block;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    padding: $space-3 $space-4;
+
+    border-radius: $radius-md;
+
+    transition: background-color .2s ease;
+
+}
+
+a:hover {
+
+    background: rgba(255,255,255,.05);
 
 }

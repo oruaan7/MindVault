@@ -1,10 +1,15 @@
 import { Component, inject } from '@angular/core';
 
+import { RouterLink } from '@angular/router';
+
 import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'mv-sidebar',
   standalone: true,
+  imports: [
+    RouterLink
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

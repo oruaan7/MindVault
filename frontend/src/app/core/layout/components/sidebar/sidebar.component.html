@@ -1,5 +1,13 @@
 <aside class="sidebar">
 
+    <div class="brand">
+
+        <span class="brand__title">
+            MindVault
+        </span>
+
+    </div>
+
     <nav>
 
         <ul>
@@ -8,7 +16,11 @@
 
                 <li>
 
-                    {{ item.label }}
+                    <a [routerLink]="item.route">
+
+                        {{ item.label }}
+
+                    </a>
 
                 </li>
 
