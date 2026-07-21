@@ -1,0 +1,55 @@
+@use '../../../../../styles/abstracts/colors' as *;
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/radius' as *;
+@use '../../../../../styles/abstracts/typography' as *;
+@use '../../../../../styles/abstracts/shadows' as *;
+
+.today-habits {
+
+    margin-top: $space-8;
+
+    padding: $space-6;
+
+    background: $color-surface;
+
+    border-radius: $radius-xl;
+
+    box-shadow: $shadow-sm;
+
+}
+
+.today-habits__title {
+
+    margin-bottom: $space-5;
+
+    font-size: $font-size-xl;
+
+    font-weight: $font-weight-semibold;
+
+}
+
+.today-habits__list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: $space-4;
+
+}
+
+.habit-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: $space-3;
+
+}
+
+.habit-item mat-icon {
+
+    color: $color-primary;
+
+}

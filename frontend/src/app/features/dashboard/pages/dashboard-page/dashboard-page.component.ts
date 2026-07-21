@@ -4,6 +4,10 @@ import { StatCardComponent } from '../../components/stat-card/stat-card.componen
 import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardStats } from '../../models/dashboard-stats.model';
+import { TodayHabitsComponent } from '../../components/today-habits/today-habits.component';
+import { HabitsService } from '../../services/habits.service';
+import { HabitItem } from '../../models/habit-item.model';
+
 
 @Component({
   selector: 'mv-dashboard-page',
@@ -13,20 +17,30 @@ import { DashboardStats } from '../../models/dashboard-stats.model';
   imports: [
     TopbarComponent,
     StatCardComponent,
-    QuickActionsComponent
+    QuickActionsComponent,
+    TodayHabitsComponent
   ]
 })
+
 export class DashboardPageComponent implements OnInit {
 
     stats!: DashboardStats;
 
+    habits!: HabitItem[];
+
     constructor(
-        private readonly dashboardService: DashboardService
+
+        private readonly dashboardService: DashboardService,
+
+        private readonly habitsService: HabitsService
+
     ) {}
 
     ngOnInit(): void {
 
         this.stats = this.dashboardService.getStats();
+
+        this.habits = this.habitsService.getTodayHabits();
 
     }
 

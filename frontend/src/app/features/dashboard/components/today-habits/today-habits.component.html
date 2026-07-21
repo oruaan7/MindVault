@@ -1,0 +1,33 @@
+<section class="today-habits">
+
+    <h2 class="today-habits__title">
+
+        Hábitos de hoje
+
+    </h2>
+
+    <div class="today-habits__list">
+
+        @for (habit of habits; track habit.id) {
+
+            <div class="habit-item">
+
+                <mat-icon>
+
+                    {{ habit.completed ? 'task_alt' : 'radio_button_unchecked' }}
+
+                </mat-icon>
+
+                <span>
+
+                    {{ habit.title }}
+
+                </span>
+
+            </div>
+
+        }
+
+    </div>
+
+</section>
