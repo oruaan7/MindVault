@@ -1,0 +1,28 @@
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/typography' as *;
+
+.quick-actions {
+
+    margin-top: $space-8;
+
+}
+
+.quick-actions__title {
+
+    margin-bottom: $space-5;
+
+    font-size: $font-size-xl;
+
+    font-weight: $font-weight-semibold;
+
+}
+
+.quick-actions__grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+
+    gap: $space-4;
+
+}
