@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TopbarComponent } from '../../../../core/layout/components/topbar/topbar.component';
 import { StatCardComponent } from '../../components/stat-card/stat-card.component';
 import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
+import { DashboardService } from '../../services/dashboard.service';
+import { DashboardStats } from '../../models/dashboard-stats.model';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'mv-dashboard-page',
@@ -14,4 +17,18 @@ import { QuickActionsComponent } from '../../components/quick-actions/quick-acti
     QuickActionsComponent
   ]
 })
-export class DashboardPageComponent {}
+export class DashboardPageComponent implements OnInit {
+
+    stats!: DashboardStats;
+
+    constructor(
+        private readonly dashboardService: DashboardService
+    ) {}
+
+    ngOnInit(): void {
+
+        this.stats = this.dashboardService.getStats(); Observable<DashboardStats>;
+
+    }
+
+}
