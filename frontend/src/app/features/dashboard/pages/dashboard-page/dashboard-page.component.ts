@@ -4,7 +4,6 @@ import { StatCardComponent } from '../../components/stat-card/stat-card.componen
 import { QuickActionsComponent } from '../../components/quick-actions/quick-actions.component';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardStats } from '../../models/dashboard-stats.model';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'mv-dashboard-page',
@@ -27,7 +26,7 @@ export class DashboardPageComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.stats = this.dashboardService.getStats(); Observable<DashboardStats>;
+        this.stats = this.dashboardService.getStats();
 
     }
 
