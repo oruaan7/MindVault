@@ -1,28 +1,44 @@
 <header class="topbar">
 
-  <div class="topbar__left">
+  <div class="topbar__content">
 
-    <h1>{{ title }}</h1>
+    <div class="topbar__titles">
 
-  </div>
+      <h1>{{ title }}</h1>
 
-  <div class="topbar__right">
+      @if (subtitle) {
 
-    <button type="button" class="icon-button">
+        <p>{{ subtitle }}</p>
 
-      <mat-icon>search</mat-icon>
+      }
 
-    </button>
+    </div>
 
-    <button type="button" class="icon-button">
+    <div class="topbar__actions">
 
-      <mat-icon>notifications</mat-icon>
+      <button
+        type="button"
+        class="icon-button"
+        aria-label="Pesquisar">
 
-    </button>
+        <mat-icon>search</mat-icon>
 
-    <div class="avatar">
+      </button>
 
-      RS
+      <button
+        type="button"
+        class="icon-button"
+        aria-label="Notificações">
+
+        <mat-icon>notifications</mat-icon>
+
+      </button>
+
+      <div class="avatar">
+
+        RS
+
+      </div>
 
     </div>
 

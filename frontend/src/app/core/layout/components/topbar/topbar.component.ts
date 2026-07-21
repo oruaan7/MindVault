@@ -16,4 +16,7 @@ export class TopbarComponent {
   @Input({ required: true })
   title!: string;
 
+  @Input()
+  subtitle?: string;
+
 }

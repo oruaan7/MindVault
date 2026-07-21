@@ -4,14 +4,16 @@
 @use '../../../../../styles/abstracts/typography' as *;
 
 .topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   margin-bottom: $space-8;
 }
 
-.topbar__left h1 {
+.topbar__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar__titles h1 {
   margin: 0;
 
   color: $color-text-primary;
@@ -21,10 +23,16 @@
   font-weight: $font-weight-semibold;
 }
 
-.topbar__right {
+.topbar__titles p {
+  margin-top: $space-1;
+
+  color: $color-text-secondary;
+}
+
+.topbar__actions {
   display: flex;
   align-items: center;
-  gap: $space-4;
+  gap: $space-3;
 }
 
 .icon-button {
@@ -42,7 +50,7 @@
 
   cursor: pointer;
 
-  transition: background .2s ease;
+  transition: background 0.2s ease;
 }
 
 .icon-button:hover {
