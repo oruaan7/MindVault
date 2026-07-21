@@ -7,6 +7,10 @@
 
 .sidebar {
 
+    position: sticky;
+
+    top: 0;
+
     width: 280px;
 
     height: 100vh;
@@ -16,6 +20,26 @@
     box-shadow: $shadow-sm;
 
     padding: $space-6;
+
+}
+
+.nav-title {
+
+    display: block;
+
+    margin-bottom: $space-3;
+
+    padding: 0 $space-4;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-sm;
+
+    font-weight: $font-weight-semibold;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
 
 }
 
@@ -44,15 +68,22 @@ li {
 }
 
 .brand {
-
     display: flex;
-
     align-items: center;
+    gap: $space-3;
 
     height: 72px;
 
     margin-bottom: $space-8;
+}
 
+.brand mat-icon {
+    color: $color-primary;
+
+    font-size: 28px;
+
+    width: 28px;
+    height: 28px;
 }
 
 .brand__title {
@@ -83,23 +114,32 @@ a {
 
   font-weight: $font-weight-medium;
 
-  transition: all .2s ease;
+  transition:
+    background-color .2s ease,
+    color .2s ease,
+    transform .2s ease;
 
 }
 
 a:hover {
 
-  background: $color-surface-secondary;
+    background: $color-surface-secondary;
 
-  color: $color-text-primary;
+    color: $color-text-primary;
+
+    transform: translateX(4px);
 
 }
 
 a.active {
 
-  background: rgba(37,99,235,.12);
+    background: rgba(37, 99, 235, .12);
 
-  color: $color-primary;
+    color: $color-primary;
+
+    border-left: 4px solid $color-primary;
+
+    padding-left: calc(#{$space-4} - 4px);
 
 }
 
