@@ -1,0 +1,27 @@
+@use '../../../../../styles/abstracts/colors' as *;
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/typography' as *;
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.stat-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: $color-text-secondary;
+}
+
+.stat-card__header mat-icon {
+  color: $color-primary;
+}
+
+.stat-card__value {
+  font-size: 2.5rem;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}

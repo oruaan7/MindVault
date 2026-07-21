@@ -1,0 +1,25 @@
+@use '../../../../styles/abstracts/colors' as *;
+@use '../../../../styles/abstracts/spacing' as *;
+@use '../../../../styles/abstracts/radius' as *;
+
+.card {
+  background-color: $color-surface;
+
+  border: 1px solid $color-border;
+
+  border-radius: $radius-lg;
+
+  padding: $space-6;
+
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+
+  transition:
+    box-shadow .2s ease,
+    transform .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+}
