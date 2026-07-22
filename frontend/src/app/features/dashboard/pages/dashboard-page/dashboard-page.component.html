@@ -33,10 +33,18 @@
 
 </section>
 
-  <mv-quick-actions></mv-quick-actions>
+  <mv-quick-actions />
 
-  <mv-today-habits
-    [habits]="habits">
-  </mv-today-habits>
+<section class="dashboard-widgets">
+
+    <mv-today-habits
+        [habits]="habits">
+    </mv-today-habits>
+
+    <mv-goal-progress
+        [goals]="goals">
+    </mv-goal-progress>
+
+</section>
 
 </section>

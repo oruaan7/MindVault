@@ -1,10 +1,10 @@
 @use '../../../../../styles/abstracts/colors' as *;
 @use '../../../../../styles/abstracts/spacing' as *;
-@use '../../../../../styles/abstracts/radius' as *;
 @use '../../../../../styles/abstracts/typography' as *;
+@use '../../../../../styles/abstracts/radius' as *;
 @use '../../../../../styles/abstracts/shadows' as *;
 
-.today-habits {
+.goal-progress {
 
     padding: $space-6;
 
@@ -16,7 +16,7 @@
 
 }
 
-.today-habits__title {
+.goal-progress__title {
 
     margin-bottom: $space-5;
 
@@ -26,28 +26,36 @@
 
 }
 
-.today-habits__list {
+.goal-progress__list {
 
     display: flex;
 
     flex-direction: column;
 
-    gap: $space-4;
+    gap: $space-6;
 
 }
 
-.habit-item {
+.goal-item {
 
     display: flex;
 
-    align-items: center;
+    flex-direction: column;
 
-    gap: $space-3;
+    gap: $space-2;
 
 }
 
-.habit-item mat-icon {
+.goal-item__header {
 
-    color: $color-primary;
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-size: $font-size-md;
+
+    font-weight: $font-weight-medium;
 
 }

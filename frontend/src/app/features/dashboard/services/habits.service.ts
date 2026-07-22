@@ -1,41 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+
 import { HabitItem } from '../models/habit-item.model';
+
+import { TODAY_HABITS_MOCK } from '../mocks/today-habits.mock';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HabitsService {
 
-    getTodayHabits(): HabitItem[] {
+    getTodayHabits(): Observable<HabitItem[]> {
 
-        return [
-
-            {
-                id: 1,
-                title: 'Beber 2L de água',
-                completed: true
-            },
-
-            {
-                id: 2,
-                title: 'Estudar Spring Boot',
-                completed: false
-            },
-
-            {
-                id: 3,
-                title: 'Academia',
-                completed: true
-            },
-
-            {
-                id: 4,
-                title: 'Ler 20 páginas',
-                completed: false
-            }
-
-        ];
+        return of(TODAY_HABITS_MOCK);
 
     }
 

@@ -1,0 +1,41 @@
+<section class="goal-progress">
+
+    <h2 class="goal-progress__title">
+
+        Metas em andamento
+
+    </h2>
+
+    <div class="goal-progress__list">
+
+        @for (goal of goals; track goal.id) {
+
+            <div class="goal-item">
+
+                <div class="goal-item__header">
+
+                    <span>
+
+                        🎯 {{ goal.title }}
+
+                    </span>
+
+                    <span>
+
+                        {{ goal.progress }}%
+
+                    </span>
+
+                </div>
+
+                <mv-progress-bar
+                    [value]="goal.progress">
+                </mv-progress-bar>
+
+            </div>
+
+        }
+
+    </div>
+
+</section>

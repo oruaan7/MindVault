@@ -7,7 +7,9 @@ import { DashboardStats } from '../../models/dashboard-stats.model';
 import { TodayHabitsComponent } from '../../components/today-habits/today-habits.component';
 import { HabitsService } from '../../services/habits.service';
 import { HabitItem } from '../../models/habit-item.model';
-
+import { GoalProgressComponent } from '../../components/goal-progress/goal-progress.component';
+import { GoalsService } from '../../services/goals.service';
+import { GoalProgress } from '../../models/goal-progress.model';
 
 @Component({
   selector: 'mv-dashboard-page',
@@ -18,7 +20,8 @@ import { HabitItem } from '../../models/habit-item.model';
     TopbarComponent,
     StatCardComponent,
     QuickActionsComponent,
-    TodayHabitsComponent
+    TodayHabitsComponent,
+    GoalProgressComponent
   ]
 })
 
@@ -28,19 +31,37 @@ export class DashboardPageComponent implements OnInit {
 
     habits!: HabitItem[];
 
+    goals!: GoalProgress[];
+
     constructor(
 
         private readonly dashboardService: DashboardService,
 
-        private readonly habitsService: HabitsService
+        private readonly habitsService: HabitsService,
+
+        private readonly goalsService: GoalsService
 
     ) {}
 
     ngOnInit(): void {
 
-        this.stats = this.dashboardService.getStats();
+        this.dashboardService.getStats().subscribe(stats => {
 
-        this.habits = this.habitsService.getTodayHabits();
+        this.stats = stats;
+
+});
+
+    this.habitsService.getTodayHabits().subscribe(habits => {
+
+    this.habits = habits;
+
+});
+
+this.goalsService.getGoals().subscribe(goals => {
+
+    this.goals = goals;
+
+});
 
     }
 

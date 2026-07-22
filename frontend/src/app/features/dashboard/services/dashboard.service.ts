@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+
 import { DashboardStats } from '../models/dashboard-stats.model';
+
+import { DASHBOARD_STATS_MOCK } from '../mocks/dashboard-stats.mock';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DashboardService {
 
-    getStats(): DashboardStats {
+    getStats(): Observable<DashboardStats> {
 
-        return {
-
-            habits: 8,
-
-            goals: 3,
-
-            projects: 5,
-
-            notes: 21
-
-        };
+        return of(DASHBOARD_STATS_MOCK);
 
     }
 
