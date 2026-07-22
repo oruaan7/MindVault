@@ -4,6 +4,7 @@
 @use '../../../../styles/abstracts/spacing' as *;
 @use '../../../../styles/abstracts/radius' as *;
 @use '../../../../styles/abstracts/typography' as *;
+@use '../../../../styles/abstracts/shadows' as *;
 
 .button {
 
@@ -13,13 +14,15 @@
 
     justify-content: center;
 
-    gap: $space-2;
+    gap: $space-3;
+
+    min-height: 48px;
+
+    padding: $space-3 $space-6;
 
     border: none;
 
     border-radius: $radius-lg;
-
-    padding: $space-3 $space-5;
 
     background: $color-primary;
 
@@ -27,11 +30,18 @@
 
     cursor: pointer;
 
+    font-size: $font-size-sm;
+
     font-weight: $font-weight-semibold;
+
+    white-space: nowrap;
+
+    box-shadow: $shadow-sm;
 
     transition:
         background-color .2s ease,
-        transform .2s ease;
+        transform .2s ease,
+        box-shadow .2s ease;
 
 }
 
@@ -41,11 +51,15 @@
 
     transform: translateY(-2px);
 
+    box-shadow: $shadow-md;
+
 }
 
 .button:active {
 
     transform: translateY(0);
+
+    box-shadow: $shadow-sm;
 
 }
 
@@ -56,5 +70,7 @@
     width: 20px;
 
     height: 20px;
+
+    flex-shrink: 0;
 
 }
