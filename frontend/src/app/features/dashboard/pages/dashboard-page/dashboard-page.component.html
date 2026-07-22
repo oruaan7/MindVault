@@ -1,50 +1,49 @@
-<section class="dashboard">
+<div class="dashboard-container">
 
-  <mv-topbar
-    title="Dashboard"
-    subtitle="Bem-vindo ao MindVault">
-  </mv-topbar>
+    <mv-topbar title="Dashboard" />
 
-  <section class="stats-grid">
+    <section class="stats-section">
 
-  <mv-stat-card
-    title="Hábitos"
-    [value]="stats.habits"
-    icon="task_alt">
-  </mv-stat-card>
+        <mv-stat-card
+            title="Hábitos"
+            [value]="stats.habits"
+            subtitle="Total de hábitos"
+            icon="task_alt" />
 
-  <mv-stat-card
-    title="Metas"
-    [value]="stats.goals"
-    icon="flag">
-  </mv-stat-card>
+        <mv-stat-card
+            title="Metas"
+            [value]="stats.goals"
+            subtitle="Metas ativas"
+            icon="flag" />
 
-  <mv-stat-card
-    title="Projetos"
-    [value]="stats.projects"
-    icon="folder">
-  </mv-stat-card>
+        <mv-stat-card
+            title="Projetos"
+            [value]="stats.projects"
+            subtitle="Projetos cadastrados"
+            icon="folder" />
 
-  <mv-stat-card
-    title="Notas"
-    [value]="stats.notes"
-    icon="description">
-  </mv-stat-card>
+        <mv-stat-card
+            title="Notas"
+            [value]="stats.notes"
+            subtitle="Notas armazenadas"
+            icon="description" />
 
-</section>
+    </section>
 
-  <mv-quick-actions />
+    <section class="quick-actions-section">
 
-<section class="dashboard-widgets">
+        <mv-quick-actions />
 
-    <mv-today-habits
-        [habits]="habits">
-    </mv-today-habits>
+    </section>
 
-    <mv-goal-progress
-        [goals]="goals">
-    </mv-goal-progress>
+    <section class="dashboard-widgets">
 
-</section>
+        <mv-today-habits
+            [habits]="habits" />
 
-</section>
+        <mv-goal-progress
+            [goals]="goals" />
+
+    </section>
+
+</div>

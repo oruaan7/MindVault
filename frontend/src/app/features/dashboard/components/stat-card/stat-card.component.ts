@@ -25,4 +25,7 @@ export class StatCardComponent {
   @Input({ required: true })
   icon!: string;
 
+  @Input({ required: true })
+  subtitle!: string;
+
 }

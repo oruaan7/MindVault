@@ -2,17 +2,35 @@
 
   <div class="stat-card">
 
-    <div class="stat-card__header">
+    <div class="stat-card__icon">
 
-      <span>{{ title }}</span>
+      <mat-icon>
 
-      <mat-icon>{{ icon }}</mat-icon>
+        {{ icon }}
+
+      </mat-icon>
 
     </div>
 
-    <div class="stat-card__value">
+    <div class="stat-card__content">
 
-      {{ value }}
+      <span class="stat-card__title">
+
+        {{ title }}
+
+      </span>
+
+      <span class="stat-card__value">
+
+        {{ value }}
+
+      </span>
+
+      <span class="stat-card__subtitle">
+
+        {{ subtitle }}
+
+      </span>
 
     </div>
 

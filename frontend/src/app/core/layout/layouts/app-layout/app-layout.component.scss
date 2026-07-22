@@ -2,13 +2,25 @@
 @use '../../../../../styles/abstracts/spacing' as *;
 
 .layout {
-  display: flex;
-  min-height: 100vh;
-  background: $color-background;
+
+    display: flex;
+
+    min-height: 100vh;
+
+    background: $color-background;
+
 }
 
 .content {
-  flex: 1;
-  padding: $space-8;
-  overflow-y: auto;
+
+    flex: 1;
+
+    padding: 40px;
+
+    display: flex;
+
+    justify-content: center;
+
+    overflow-y: auto;
+
 }
