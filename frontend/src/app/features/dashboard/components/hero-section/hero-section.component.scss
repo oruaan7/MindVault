@@ -1,0 +1,54 @@
+@use '../../../../../styles/abstracts/colors' as *;
+@use '../../../../../styles/abstracts/spacing' as *;
+@use '../../../../../styles/abstracts/typography' as *;
+@use '../../../../../styles/abstracts/radius' as *;
+
+.hero {
+
+    background: linear-gradient(
+        135deg,
+        rgba(37,99,235,.08),
+        rgba(59,130,246,.04)
+    );
+
+    border-radius: $radius-xl;
+
+    padding: $space-8;
+
+}
+
+.hero__content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: $space-5;
+
+}
+
+.hero__emoji {
+
+    font-size: 3rem;
+
+}
+
+.hero__title {
+
+    font-size: 2rem;
+
+    font-weight: $font-weight-bold;
+
+    color: $color-text-primary;
+
+}
+
+.hero__description {
+
+    margin-top: $space-2;
+
+    color: $color-text-secondary;
+
+    font-size: $font-size-lg;
+
+}

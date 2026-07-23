@@ -8,17 +8,19 @@
 
 .button {
 
-    display: inline-flex;
+    display: flex;
+
+    width: 100%;
 
     align-items: center;
 
-    justify-content: center;
+    justify-content: flex-start;
 
     gap: $space-3;
 
     min-height: 48px;
 
-    padding: $space-3 $space-6;
+    padding: $space-4 $space-6;
 
     border: none;
 

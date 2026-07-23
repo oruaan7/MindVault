@@ -1,6 +1,7 @@
 @use '../../../../../styles/abstracts/colors' as *;
 @use '../../../../../styles/abstracts/spacing' as *;
 @use '../../../../../styles/abstracts/typography' as *;
+@use '../../../../../styles/abstracts/radius' as *;
 
 .quick-actions {
 
@@ -10,15 +11,21 @@
 
     gap: $space-5;
 
+    padding: $space-6;
+
+    background: $color-surface;
+
+    border-radius: $radius-xl;
+
 }
 
 .quick-actions__header {
 
     display: flex;
 
-    flex-direction: column;
+    justify-content: space-between;
 
-    gap: $space-1;
+    align-items: center;
 
 }
 
@@ -26,13 +33,15 @@
 
     font-size: $font-size-xl;
 
-    font-weight: $font-weight-semibold;
+    font-weight: $font-weight-bold;
 
     color: $color-text-primary;
 
 }
 
 .quick-actions__subtitle {
+
+    margin-top: $space-1;
 
     color: $color-text-secondary;
 
@@ -47,5 +56,13 @@
     flex-wrap: wrap;
 
     gap: $space-4;
+
+}
+
+.quick-actions__actions mv-button {
+
+    flex: 1;
+
+    min-width: 220px;
 
 }

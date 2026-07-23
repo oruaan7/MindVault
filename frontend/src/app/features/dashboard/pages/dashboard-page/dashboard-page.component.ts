@@ -10,6 +10,8 @@ import { HabitItem } from '../../models/habit-item.model';
 import { GoalProgressComponent } from '../../components/goal-progress/goal-progress.component';
 import { GoalsService } from '../../services/goals.service';
 import { GoalProgress } from '../../models/goal-progress.model';
+import { HeroSectionComponent } from '../../components/hero-section/hero-section.component';
+
 
 @Component({
   selector: 'mv-dashboard-page',
@@ -21,7 +23,8 @@ import { GoalProgress } from '../../models/goal-progress.model';
     StatCardComponent,
     QuickActionsComponent,
     TodayHabitsComponent,
-    GoalProgressComponent
+    GoalProgressComponent,
+    HeroSectionComponent
   ]
 })
 
